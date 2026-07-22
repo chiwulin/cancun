@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome On Board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #ffffff;
+    --surface: #ffffff;
+    --surface2: #f9fafb;
+    --border: #e5e7eb;
+    --border-strong: #d1d5db;
+    --accent: #18181b;
+    --accent-fg: #ffffff;
+    --text: #09090b;
+    --text-2: #3f3f46;
+    --muted: #71717a;
+    --radius: 8px;
+    --radius-lg: 12px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; min-height: 100vh; line-height: 1.6; font-size: 14px; }
+
+  .hero { border-bottom: 1px solid var(--border); padding: 5rem 2rem 4rem; text-align: center; }
+  .hero-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--surface2); border: 1px solid var(--border); color: var(--muted); padding: 4px 12px; border-radius: 100px; font-size: 12px; font-weight: 500; letter-spacing: 0.04em; margin-bottom: 1.5rem; text-transform: uppercase; }
+  .hero h1 { font-size: clamp(2rem, 6vw, 3.5rem); font-weight: 700; line-height: 1.1; letter-spacing: -0.03em; color: var(--text); margin-bottom: 1rem; }
+  .hero-sub { font-size: 1rem; color: var(--muted); max-width: 480px; margin: 0 auto 2.5rem; }
+  .hero-dates { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+  .date-chip { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius); padding: 10px 18px; text-align: center; }
+  .date-chip .label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+  .date-chip .val { font-size: 0.95rem; font-weight: 600; color: var(--text); margin-top: 2px; }
+
+  .lang-bar { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.95); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); display: flex; justify-content: center; padding: 10px; gap: 6px; }
+  .lang-btn { background: transparent; border: 1px solid var(--border); color: var(--muted); padding: 5px 16px; border-radius: var(--radius); cursor: pointer; font-size: 13px; font-weight: 500; transition: all 0.15s; font-family: 'Inter', sans-serif; }
+  .lang-btn:hover { border-color: var(--border-strong); color: var(--text-2); }
+  .lang-btn.active { background: var(--accent); border-color: var(--accent); color: var(--accent-fg); }
+
+  main { max-width: 860px; margin: 0 auto; padding: 3rem 1.5rem 6rem; }
+  .section { margin-bottom: 3.5rem; }
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 1.25rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border); }
+  .section-icon { font-size: 18px; }
+  .section-title { font-size: 1.1rem; font-weight: 600; color: var(--text); }
+
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.25rem 1.5rem; margin-bottom: 0.75rem; }
+  .card-title { font-weight: 600; font-size: 0.9rem; margin-bottom: 0.4rem; color: var(--text); }
+  .card p { color: var(--muted); font-size: 0.875rem; line-height: 1.7; }
+
+  .alert { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius); padding: 0.875rem 1rem; color: var(--text-2); font-size: 0.875rem; display: flex; gap: 8px; align-items: flex-start; margin-bottom: 1.25rem; }
+  .alert-warn { border-left: 3px solid #f59e0b; }
+  .alert-info { border-left: 3px solid var(--border-strong); }
+  .alert-error { border-left: 3px solid #ef4444; background: #fef2f2; color: #991b1b; }
+
+  .summary-bar { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin-bottom: 2.5rem; border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
+  .summary-stat { padding: 1rem 1.25rem; border-right: 1px solid var(--border); }
+  .summary-stat:last-child { border-right: none; }
+  .stat-value { font-size: 1.35rem; font-weight: 700; color: var(--text); letter-spacing: -0.02em; }
+  .stat-label { font-size: 11px; color: var(--muted); margin-top: 2px; text-transform: uppercase; letter-spacing: 0.05em; }
+  @media(max-width:640px) {
+    .summary-bar { grid-template-columns: 1fr 1fr; }
+    .summary-stat { border-right: none; border-bottom: 1px solid var(--border); }
+    .summary-stat:nth-child(odd) { border-right: 1px solid var(--border); }
+    .summary-stat:nth-last-child(-n+2) { border-bottom: none; }
+  }
+
+  .hotel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+  @media(max-width:600px) { .hotel-grid { grid-template-columns: 1fr; } }
+  .hotel-card { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.25rem; transition: border-color 0.15s; }
+  .hotel-card:hover { border-color: var(--border-strong); }
+  .hotel-tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 500; border: 1px solid var(--border); color: var(--muted); margin-bottom: 8px; }
+  .hotel-name { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.4rem; }
+  .hotel-link { display: inline-flex; align-items: center; gap: 4px; color: var(--muted); font-size: 0.8rem; text-decoration: none; margin-top: 0.75rem; transition: color 0.15s; }
+  .hotel-link:hover { color: var(--text); }
+
+  .inclusion-list { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-top: 1rem; }
+  @media(max-width:600px) { .inclusion-list { grid-template-columns: 1fr; } }
+  .inclusion-item { display: flex; gap: 8px; align-items: flex-start; background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius); padding: 8px 10px; font-size: 0.825rem; color: var(--text-2); }
+  .check { color: var(--text); flex-shrink: 0; }
+
+  .calc-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.5rem; }
+  .calc-row { display: flex; gap: 1.25rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+  .calc-group { flex: 1; min-width: 140px; }
+  .calc-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 6px; font-weight: 500; }
+  .radio-group { display: flex; gap: 5px; flex-wrap: wrap; }
+  .radio-btn { background: var(--surface2); border: 1px solid var(--border); color: var(--muted); padding: 6px 12px; border-radius: var(--radius); cursor: pointer; font-size: 0.825rem; transition: all 0.15s; font-family: 'Inter', sans-serif; }
+  .radio-btn:hover { border-color: var(--border-strong); color: var(--text-2); }
+  .radio-btn.active { background: var(--accent); border-color: var(--accent); color: var(--accent-fg); font-weight: 500; }
+  .calc-result { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem; }
+  .result-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 4px; font-weight: 500; }
+  .result-amount { font-size: 2.25rem; font-weight: 700; color: var(--text); letter-spacing: -0.03em; }
+  .result-sub { font-size: 0.75rem; color: var(--muted); margin-top: 2px; }
+  .result-breakdown { margin-top: 1rem; display: flex; flex-direction: column; gap: 6px; }
+  .breakdown-line { display: flex; justify-content: space-between; font-size: 0.825rem; }
+  .breakdown-line span:first-child { color: var(--muted); }
+  .breakdown-line span:last-child { color: var(--text); font-weight: 500; }
+  .divider { height: 1px; background: var(--border); margin: 10px 0; }
+
+  .rate-table { width: 100%; border-collapse: collapse; }
+  .rate-table th { background: var(--surface2); padding: 8px 14px; text-align: left; font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.07em; font-weight: 500; border-bottom: 1px solid var(--border); }
+  .rate-table td { padding: 10px 14px; font-size: 0.825rem; border-bottom: 1px solid var(--border); color: var(--text-2); }
+  .rate-table tr:last-child td { border-bottom: none; }
+  .rate-table tr:hover td { background: var(--surface2); }
+  .rate-highlight { color: var(--text); font-weight: 600; }
+  .rate-wrapper { border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; margin-top: 1rem; }
+  .cheaper-badge { display: inline-block; background: var(--surface2); border: 1px solid var(--border); color: var(--muted); font-size: 10px; font-weight: 500; padding: 1px 6px; border-radius: 4px; }
+
+  .itinerary { display: flex; flex-direction: column; }
+  .day-block { display: flex; gap: 1.25rem; }
+  .day-line { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; width: 36px; }
+  .day-dot { width: 36px; height: 36px; border-radius: 50%; background: var(--surface2); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0; }
+  .day-dot.special { background: var(--accent); border-color: var(--accent); }
+  .day-stem { width: 1px; background: var(--border); flex: 1; min-height: 24px; margin-top: 4px; }
+  .day-content { flex: 1; padding-bottom: 2rem; }
+  .day-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 3px; font-weight: 500; }
+  .day-title { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.6rem; }
+  .day-events { display: flex; flex-direction: column; gap: 5px; }
+  .event { display: flex; gap: 10px; align-items: flex-start; background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius); padding: 8px 12px; font-size: 0.825rem; }
+  .event-time { color: var(--muted); white-space: nowrap; min-width: 50px; font-size: 0.775rem; padding-top: 1px; }
+  .event-special { border-color: var(--border-strong); }
+  .event-special .event-name { font-weight: 500; }
+
+  .activity-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+  @media(max-width:600px) { .activity-grid { grid-template-columns: 1fr; } }
+  .activity-card { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.25rem; transition: border-color 0.15s; }
+  .activity-card:hover { border-color: var(--border-strong); }
+  .act-emoji { font-size: 1.5rem; margin-bottom: 8px; }
+  .act-name { font-weight: 600; font-size: 0.9rem; margin-bottom: 4px; }
+  .act-desc { font-size: 0.825rem; color: var(--muted); line-height: 1.6; }
+  .act-badge { display: inline-block; margin-top: 8px; background: var(--surface); border: 1px solid var(--border); color: var(--muted); font-size: 11px; font-weight: 500; padding: 2px 8px; border-radius: 4px; }
+  .act-link { display: inline-flex; align-items: center; gap: 4px; color: var(--muted); font-size: 0.775rem; text-decoration: none; margin-top: 8px; transition: color 0.15s; }
+  .act-link:hover { color: var(--text); }
+
+  .checklist { display: flex; flex-direction: column; gap: 5px; }
+  .check-item { display: flex; gap: 10px; align-items: flex-start; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 10px 14px; cursor: pointer; transition: border-color 0.15s; user-select: none; }
+  .check-item:hover { border-color: var(--border-strong); }
+  .check-box { width: 18px; height: 18px; border-radius: 4px; border: 1px solid var(--border-strong); flex-shrink: 0; margin-top: 1px; transition: all 0.15s; display: flex; align-items: center; justify-content: center; font-size: 11px; }
+  .check-item.done .check-box { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .check-item.done .check-text { text-decoration: line-through; color: var(--muted); }
+  .check-text { font-size: 0.875rem; color: var(--text-2); }
+
+  /* TRAVEL DOC */
+  .passport-grid { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1rem; }
+  .passport-row { display: flex; align-items: flex-start; gap: 12px; background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius); padding: 10px 14px; font-size: 0.875rem; }
+  .passport-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .passport-type { font-weight: 600; color: var(--text); min-width: 190px; }
+  .visa-needed { color: #b45309; font-weight: 500; }
+  .visa-free { color: #166534; font-weight: 500; }
+  .visa-conditional { color: #1e40af; font-weight: 500; }
+
+  /* FLIGHT BUDDY */
+  .buddy-form { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.5rem; margin-bottom: 1rem; }
+  .form-row { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 1rem; }
+  .form-group { flex: 1; min-width: 140px; }
+  .form-label { display: block; font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.07em; font-weight: 500; margin-bottom: 5px; }
+  .form-input { width: 100%; background: var(--surface); border: 1px solid var(--border); color: var(--text); padding: 8px 12px; border-radius: var(--radius); font-size: 0.875rem; font-family: 'Inter', sans-serif; transition: border-color 0.15s; }
+  .form-input:focus { outline: none; border-color: var(--border-strong); }
+  .form-input::placeholder { color: var(--muted); }
+  .btn-primary { background: var(--accent); color: var(--accent-fg); border: none; padding: 9px 20px; border-radius: var(--radius); font-size: 0.875rem; font-weight: 500; cursor: pointer; font-family: 'Inter', sans-serif; transition: opacity 0.15s; display: inline-flex; align-items: center; gap: 6px; }
+  .btn-primary:hover { opacity: 0.85; }
+  .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  .flight-info-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem 1.25rem; margin-top: 0.75rem; font-size: 0.875rem; }
+  .flight-info-row { display: flex; gap: 1.5rem; flex-wrap: wrap; margin-top: 0.75rem; }
+  .fi-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 2px; }
+  .fi-val { font-weight: 600; color: var(--text); }
+
+  .passengers-list { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 1rem; }
+  .passenger-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
+  .passenger-header { display: flex; align-items: center; justify-content: space-between; padding: 0.875rem 1.25rem; flex-wrap: wrap; gap: 8px; }
+  .flight-route { font-weight: 600; font-size: 0.9rem; color: var(--text); }
+  .flight-date-tag { font-size: 11px; color: var(--muted); background: var(--surface2); border: 1px solid var(--border); padding: 2px 8px; border-radius: 4px; }
+  .passenger-names { padding: 0 1.25rem 0.875rem; display: flex; flex-wrap: wrap; gap: 5px; }
+  .name-chip { background: var(--surface2); border: 1px solid var(--border); color: var(--text-2); font-size: 0.8rem; padding: 3px 10px; border-radius: 100px; }
+  .name-chip.highlight { background: var(--accent); border-color: var(--accent); color: var(--accent-fg); font-weight: 500; }
+  .match-badge { font-size: 11px; font-weight: 500; background: #f0fdf4; border: 1px solid #bbf7d0; color: #166534; padding: 2px 8px; border-radius: 4px; }
+
+  .empty-state { text-align: center; padding: 2rem 1rem; color: var(--muted); font-size: 0.875rem; background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius-lg); }
+  .es-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+
+  .loading-dots { display: inline-flex; gap: 4px; align-items: center; }
+  .loading-dots span { width: 5px; height: 5px; background: var(--muted); border-radius: 50%; animation: dot-bounce 1.2s ease-in-out infinite; }
+  .loading-dots span:nth-child(2) { animation-delay: 0.2s; }
+  .loading-dots span:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes dot-bounce { 0%,80%,100%{transform:translateY(0)} 40%{transform:translateY(-4px)} }
+
+  footer { text-align: center; padding: 2.5rem 1.5rem; color: var(--muted); font-size: 0.8rem; border-top: 1px solid var(--border); }
+
+  [data-lang] { display: none; }
+  [data-lang].visible { display: block; }
+  [data-lang-inline] { display: none; }
+  [data-lang-inline].visible { display: inline; }
+
+  @media(max-width:480px) {
+    main { padding: 2rem 1rem 4rem; }
+    .calc-row, .form-row { flex-direction: column; }
+    .hero { padding: 3rem 1.5rem 2.5rem; }
+    .passport-row { flex-wrap: wrap; }
+    .passport-type { min-width: unset; }
+  }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-badge">&#9992;&#65039; Company Trip 2026</div>
+  <h1>Welcome On Board</h1>
+  <p class="hero-sub">
+    <span data-lang="en" class="visible">Cancun &middot; Mexico &middot; November 2026</span>
+    <span data-lang="zh-hans">坎昆 &middot; 墨西哥 &middot; 2026 年 11 月</span>
+    <span data-lang="zh-hant">坎昆 &middot; 墨西哥 &middot; 2026 年 11 月</span>
+  </p>
+  <div class="hero-dates">
+    <div class="date-chip">
+      <div class="label"><span data-lang="en" class="visible">Depart</span><span data-lang="zh-hans">出发</span><span data-lang="zh-hant">出發</span></div>
+      <div class="val">Nov 6&ndash;7</div>
+    </div>
+    <div class="date-chip">
+      <div class="label"><span data-lang="en" class="visible">Return</span><span data-lang="zh-hans">回程</span><span data-lang="zh-hant">回程</span></div>
+      <div class="val">Nov 11</div>
+    </div>
+    <div class="date-chip">
+      <div class="label"><span data-lang="en" class="visible">Duration</span><span data-lang="zh-hans">天数</span><span data-lang="zh-hant">天數</span></div>
+      <div class="val">4&ndash;5 Nights</div>
+    </div>
+    <div class="date-chip">
+      <div class="label"><span data-lang="en" class="visible">Hotel</span><span data-lang="zh-hans">酒店</span><span data-lang="zh-hant">酒店</span></div>
+      <div class="val">Xcaret</div>
+    </div>
+  </div>
+</section>
+
+<div class="lang-bar">
+  <button class="lang-btn active" onclick="setLang('en')">English</button>
+  <button class="lang-btn" onclick="setLang('zh-hans')">简体中文</button>
+  <button class="lang-btn" onclick="setLang('zh-hant')">繁體中文</button>
+</div>
+
+<main>
+
+  <!-- SUMMARY -->
+  <div class="summary-bar">
+    <div class="summary-stat">
+      <div class="stat-value">~$3K+</div>
+      <div class="stat-label"><span data-lang="en" class="visible">Est. from Vancouver</span><span data-lang="zh-hans">温哥华出发预算</span><span data-lang="zh-hant">溫哥華出發預算</span></div>
+    </div>
+    <div class="summary-stat">
+      <div class="stat-value">20+</div>
+      <div class="stat-label"><span data-lang="en" class="visible">Restaurants &amp; bars</span><span data-lang="zh-hans">餐厅和酒吧</span><span data-lang="zh-hant">餐廳和酒吧</span></div>
+    </div>
+    <div class="summary-stat">
+      <div class="stat-value">5</div>
+      <div class="stat-label"><span data-lang="en" class="visible">Parks included</span><span data-lang="zh-hans">包含公园数量</span><span data-lang="zh-hant">包含公園數量</span></div>
+    </div>
+    <div class="summary-stat">
+      <div class="stat-value">&#127874;</div>
+      <div class="stat-label"><span data-lang="en" class="visible">Birthday party Nov 7</span><span data-lang="zh-hans">生日派对 11/7</span><span data-lang="zh-hant">生日派對 11/7</span></div>
+    </div>
+  </div>
+
+  <!-- FIRST STEPS -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-icon">&#128203;</span>
+      <span class="section-title"><span data-lang="en" class="visible">First Steps</span><span data-lang="zh-hans">首先要做的事</span><span data-lang="zh-hant">首先要做的事</span></span>
+    </div>
+    <div class="alert alert-warn" style="margin-bottom:1rem;">
+      <span>&#9888;&#65039;</span>
+      <div>
+        <span data-lang="en" class="visible"><strong>Action needed:</strong> Find your roommate and coordinate travel dates before booking. Each room must have the correct number of people registered.</span>
+        <span data-lang="zh-hans"><strong>注意：</strong>订票前请先找好室友并协调旅行日期。每个房间必须登记正确的人数。</span>
+        <span data-lang="zh-hant"><strong>注意：</strong>訂票前請先找好室友並協調旅行日期。每個房間必須登記正確的人數。</span>
+      </div>
+    </div>
+    <div class="checklist">
+      <div class="check-item" onclick="toggleCheck(this)"><div class="check-box">&#10003;</div><div class="check-text"><span data-lang="en" class="visible">Find your roommate and coordinate travel dates</span><span data-lang="zh-hans">找好室友并协调旅行日期</span><span data-lang="zh-hant">找好室友並協調旅行日期</span></div></div>
+      <div class="check-item" onclick="toggleCheck(this)"><div class="check-box">&#10003;</div><div class="check-text"><span data-lang="en" class="visible">Book flight tickets &mdash; use an Aeroplan credit card for free luggage</span><span data-lang="zh-hans">购买机票——使用 Aeroplan 信用卡可免费托运行李</span><span data-lang="zh-hant">購買機票——使用 Aeroplan 信用卡可免費托運行李</span></div></div>
+      <div class="check-item" onclick="toggleCheck(this)"><div class="check-box">&#10003;</div><div class="check-text"><span data-lang="en" class="visible">Register your flight in the Flight Buddy Finder below</span><span data-lang="zh-hans">在下方「航班同行查询」填入你的航班</span><span data-lang="zh-hant">在下方「航班同行查詢」填入你的航班</span></div></div>
+      <div class="check-item" onclick="toggleCheck(this)"><div class="check-box">&#10003;</div><div class="check-text"><span data-lang="en" class="visible">Reserve the hotel airport shuttle in advance</span><span data-lang="zh-hans">提前预订机场接送穿梭巴士</span><span data-lang="zh-hant">提前預訂機場接送穿梭巴士</span></div></div>
+      <div class="check-item" onclick="toggleCheck(this)"><div class="check-box">&#10003;</div><div class="check-text"><span data-lang="en" class="visible">Book activities in advance &mdash; Xel-Ha, Xenotes, Chich&eacute;n Itz&aacute;, etc.</span><span data-lang="zh-hans">提前预订活动——Xel-Ha、Xenotes、奇琴伊察等</span><span data-lang="zh-hant">提前預訂活動——Xel-Ha、Xenotes、奇琴伊察等</span></div></div>
+      <div class="check-item" onclick="toggleCheck(this)"><div class="check-box">&#10003;</div><div class="check-text"><span data-lang="en" class="visible">Apply for days off: Nov 9 (Mon) + Nov 10 (Tue), and Nov 6 (Fri) if departing early</span><span data-lang="zh-hans">申请休假：11/9（周一）+ 11/10（周二），提前出发也需 11/6（周五）</span><span data-lang="zh-hant">申請休假：11/9（週一）+ 11/10（週二），提前出發也需 11/6（週五）</span></div></div>
+    </div>
+  </div>
+
+  <!-- TRAVEL DOCUMENTS -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-icon">&#128706;</span>
+      <span class="section-title"><span data-lang="en" class="visible">Travel Documents</span><span data-lang="zh-hans">旅行证件</span><span data-lang="zh-hant">旅行證件</span></span>
+    </div>
+    <div class="passport-grid">
+      <div class="passport-row">
+        <div class="passport-icon">&#127464;&#127462;</div>
+        <div class="passport-type"><span data-lang="en" class="visible">Canadian passport</span><span data-lang="zh-hans">加拿大护照</span><span data-lang="zh-hant">加拿大護照</span></div>
+        <div><span class="visa-free">&#10003; <span data-lang="en" class="visible">No visa needed</span><span data-lang="zh-hans">无需签证</span><span data-lang="zh-hant">無需簽證</span></span></div>
+      </div>
+      <div class="passport-row">
+        <div class="passport-icon">&#127481;&#127484;</div>
+        <div class="passport-type"><span data-lang="en" class="visible">ROC Taiwan passport</span><span data-lang="zh-hans">中华民国（台湾）护照</span><span data-lang="zh-hant">中華民國（台灣）護照</span></div>
+        <div><span class="visa-needed">&#9888; <span data-lang="en" class="visible">Visa required</span><span data-lang="zh-hans">需要签证</span><span data-lang="zh-hant">需要簽證</span></span></div>
+      </div>
+      <div class="passport-row">
+        <div class="passport-icon">&#127464;&#127475;</div>
+        <div class="passport-type"><span data-lang="en" class="visible">PRC China passport</span><span data-lang="zh-hans">中华人民共和国护照</span><span data-lang="zh-hant">中華人民共和國護照</span></div>
+        <div style="color:var(--text-2);font-size:0.85rem;"><span class="visa-conditional">&#9675; </span><span data-lang="en" class="visible">No visa if you hold Canadian/US PR or eligible work/study permit &mdash; please confirm on the <a href="https://www.gob.mx/sre" target="_blank" style="color:inherit;">Mexico gov website</a></span><span data-lang="zh-hans">持加拿大或美国永久居留权，或符合条件的工作/学习许可可免签——请在<a href="https://www.gob.mx/sre" target="_blank" style="color:inherit;">墨西哥政府网站</a>确认</span><span data-lang="zh-hant">持加拿大或美國永久居留權，或符合條件的工作/學習許可可免簽——請至<a href="https://www.gob.mx/sre" target="_blank" style="color:inherit;">墨西哥政府網站</a>確認</span></div>
+      </div>
+    </div>
+    <div class="alert alert-error">
+      <span>&#128683;</span>
+      <div>
+        <strong><span data-lang="en" class="visible">Electronic cigarettes and vapes are strictly prohibited in Mexico.</span><span data-lang="zh-hans">电子烟和 Vape 在墨西哥严格禁止携带入境。</span><span data-lang="zh-hant">電子菸和 Vape 在墨西哥嚴格禁止攜帶入境。</span></strong>
+        <span data-lang="en" class="visible"> Please do not bring them.</span><span data-lang="zh-hans">请勿携带。</span><span data-lang="zh-hant">請勿攜帶。</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- FLIGHT BUDDY FINDER -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-icon">&#128747;</span>
+      <span class="section-title"><span data-lang="en" class="visible">Flight Buddy Finder</span><span data-lang="zh-hans">航班同行查询</span><span data-lang="zh-hant">航班同行查詢</span></span>
+    </div>
+    <div class="alert alert-info" style="margin-bottom:1rem;">
+      <span>&#10024;</span>
+      <div>
+        <span data-lang="en" class="visible">Enter your flight number, date, and name. AI will look up your flight schedule and match you with teammates on the same plane.</span>
+        <span data-lang="zh-hans">输入航班号、日期和姓名，AI 会自动查询航班时刻表，并找出同班机的队友。</span>
+        <span data-lang="zh-hant">輸入航班號、日期和姓名，AI 會自動查詢航班時刻表，並找出同班機的隊友。</span>
+      </div>
+    </div>
+
+    <div class="buddy-form">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label"><span data-lang="en" class="visible">Your name</span><span data-lang="zh-hans">你的姓名</span><span data-lang="zh-hant">你的姓名</span></label>
+          <input class="form-input" id="input-name" type="text" placeholder="e.g. Justin" />
+        </div>
+        <div class="form-group">
+          <label class="form-label"><span data-lang="en" class="visible">Flight number</span><span data-lang="zh-hans">航班号</span><span data-lang="zh-hant">航班號</span></label>
+          <input class="form-input" id="input-flight" type="text" placeholder="e.g. AC865" oninput="this.value=this.value.toUpperCase()" />
+        </div>
+        <div class="form-group">
+          <label class="form-label"><span data-lang="en" class="visible">Date</span><span data-lang="zh-hans">日期</span><span data-lang="zh-hant">日期</span></label>
+          <input class="form-input" id="input-date" type="date" min="2026-11-06" max="2026-11-11" value="2026-11-06" />
+        </div>
+      </div>
+      <div style="display:flex;gap:0.75rem;align-items:center;flex-wrap:wrap;">
+        <button class="btn-primary" id="lookup-btn" onclick="lookupFlight()">
+          <span data-lang="en" class="visible">Look up flight</span><span data-lang="zh-hans">查询航班</span><span data-lang="zh-hant">查詢航班</span>
+        </button>
+        <span id="lookup-status" style="font-size:0.825rem;color:var(--muted);"></span>
+      </div>
+
+      <div id="flight-info-result" style="display:none;" class="flight-info-box">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+          <strong id="fi-flightnum" style="font-size:0.95rem;"></strong>
+          <span id="fi-confidence" style="font-size:11px;color:var(--muted);"></span>
+        </div>
+        <div class="flight-info-row">
+          <div><div class="fi-label"><span data-lang="en" class="visible">From</span><span data-lang="zh-hans">出发</span><span data-lang="zh-hant">出發</span></div><div class="fi-val" id="fi-from">&mdash;</div></div>
+          <div style="color:var(--muted);font-size:1.1rem;padding-top:1rem;">&rarr;</div>
+          <div><div class="fi-label"><span data-lang="en" class="visible">To</span><span data-lang="zh-hans">目的地</span><span data-lang="zh-hant">目的地</span></div><div class="fi-val" id="fi-to">&mdash;</div></div>
+          <div><div class="fi-label"><span data-lang="en" class="visible">Departs</span><span data-lang="zh-hans">起飞</span><span data-lang="zh-hant">起飛</span></div><div class="fi-val" id="fi-dep">&mdash;</div></div>
+          <div><div class="fi-label"><span data-lang="en" class="visible">Arrives</span><span data-lang="zh-hans">抵达</span><span data-lang="zh-hant">抵達</span></div><div class="fi-val" id="fi-arr">&mdash;</div></div>
+          <div><div class="fi-label"><span data-lang="en" class="visible">Duration</span><span data-lang="zh-hans">飞行时长</span><span data-lang="zh-hant">飛行時長</span></div><div class="fi-val" id="fi-dur">&mdash;</div></div>
+        </div>
+        <div id="fi-note" style="margin-top:0.5rem;font-size:0.8rem;color:var(--muted);display:none;"></div>
+        <div style="margin-top:0.875rem;">
+          <button class="btn-primary" onclick="registerFlight()" style="font-size:0.825rem;padding:7px 16px;">
+            <span data-lang="en" class="visible">&#10003; Add me to this flight</span><span data-lang="zh-hans">&#10003; 把我加入这班机</span><span data-lang="zh-hant">&#10003; 把我加入這班機</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="passengers-section">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
+        <p style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;font-weight:500;">
+          <span data-lang="en" class="visible">Who&rsquo;s flying when</span><span data-lang="zh-hans">大家的航班</span><span data-lang="zh-hant">大家的航班</span>
+        </p>
+        <button onclick="loadAndRender(myName)" style="background:none;border:none;color:var(--muted);font-size:11px;cursor:pointer;font-family:'Inter',sans-serif;text-decoration:underline;padding:0;">
+          <span data-lang="en" class="visible">&#8635; Refresh</span><span data-lang="zh-hans">刷新</span><span data-lang="zh-hant">重新整理</span>
+        </button>
+      </div>
+
+      <!-- OUTBOUND -->
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:0.6rem;">
+        <span style="font-size:13px;">&#128747;</span>
+        <span style="font-size:0.8rem;font-weight:600;color:var(--text);">
+          <span data-lang="en" class="visible">Outbound &mdash; Nov 6 &ndash; 7</span>
+          <span data-lang="zh-hans">去程 — 11/6 – 7</span>
+          <span data-lang="zh-hant">去程 — 11/6 – 7</span>
+        </span>
+      </div>
+      <div id="passengers-outbound" class="passengers-list" style="margin-bottom:1.5rem;"></div>
+
+      <!-- RETURN -->
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:0.6rem;">
+        <span style="font-size:13px;">&#127968;</span>
+        <span style="font-size:0.8rem;font-weight:600;color:var(--text);">
+          <span data-lang="en" class="visible">Return &mdash; Nov 11</span>
+          <span data-lang="zh-hans">回程 — 11/11</span>
+          <span data-lang="zh-hant">回程 — 11/11</span>
+        </span>
+      </div>
+      <div id="passengers-return" class="passengers-list"></div>
+    </div>
+  </div>
+
+  <!-- ACCOMMODATION -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-icon">&#127976;</span>
+      <span class="section-title"><span data-lang="en" class="visible">Accommodation</span><span data-lang="zh-hans">住宿</span><span data-lang="zh-hant">住宿</span></span>
+    </div>
+    <div class="hotel-grid" style="margin-bottom:1rem">
+      <div class="hotel-card">
+        <span class="hotel-tag"><span data-lang="en" class="visible">Adults Only</span><span data-lang="zh-hans">仅限成人</span><span data-lang="zh-hant">僅限成人</span></span>
+        <div class="hotel-name">Xcaret Hotel Arte</div>
+        <p style="font-size:0.825rem;color:var(--muted);line-height:1.6;"><span data-lang="en" class="visible">Upscale adults-only experience with art-focused design and premium amenities.</span><span data-lang="zh-hans">高端成人专属体验，以艺术为主题设计。</span><span data-lang="zh-hant">高端成人專屬體驗，以藝術為主題設計。</span></p>
+        <a class="hotel-link" href="https://www.hotelxcaret.com/en/hotel-xcaret-arte/" target="_blank"><span data-lang="en" class="visible">View hotel</span><span data-lang="zh-hans">查看酒店</span><span data-lang="zh-hant">查看酒店</span> &#8599;</a>
+      </div>
+      <div class="hotel-card">
+        <span class="hotel-tag"><span data-lang="en" class="visible">Family Friendly</span><span data-lang="zh-hans">适合家庭</span><span data-lang="zh-hant">適合家庭</span></span>
+        <div class="hotel-name">Xcaret Hotel Mexico</div>
+        <p style="font-size:0.825rem;color:var(--muted);line-height:1.6;"><span data-lang="en" class="visible">Family-friendly experience celebrating Mexican culture, connected to Arte as one complex.</span><span data-lang="zh-hans">家庭友好型体验，以墨西哥文化为主题，与 Arte 相连。</span><span data-lang="zh-hant">家庭友好型體驗，以墨西哥文化為主題，與 Arte 相連。</span></p>
+        <a class="hotel-link" href="https://www.hotelxcaret.com/en/hotel-xcaret-mexico/" target="_blank"><span data-lang="en" class="visible">View hotel</span><span data-lang="zh-hans">查看酒店</span><span data-lang="zh-hant">查看酒店</span> &#8599;</a>
+      </div>
+    </div>
+    <p style="font-size:0.8rem;color:var(--muted);margin-bottom:0.5rem;font-weight:500;text-transform:uppercase;letter-spacing:0.06em;"><span data-lang="en" class="visible">All-inclusive perks</span><span data-lang="zh-hans">全包式福利</span><span data-lang="zh-hant">全包式福利</span></p>
+    <div class="inclusion-list">
+      <div class="inclusion-item"><span class="check">&#10003;</span><span data-lang="en" class="visible">Food &amp; drinks &mdash; 20+ restaurants &amp; bars</span><span data-lang="zh-hans">餐饮——20+ 家餐厅和酒吧</span><span data-lang="zh-hant">餐飲——20+ 家餐廳和酒吧</span></div>
+      <div class="inclusion-item"><span class="check">&#10003;</span><span data-lang="en" class="visible">All Xcaret parks: Xcaret, Xel-Ha, Xplor, Xoximilco, Xense</span><span data-lang="zh-hans">所有 Xcaret 主题公园（5 个）</span><span data-lang="zh-hant">所有 Xcaret 主題公園（5 個）</span></div>
+      <div class="inclusion-item"><span class="check">&#10003;</span><span data-lang="en" class="visible">Airport shuttle &mdash; reserve in advance</span><span data-lang="zh-hans">机场接送——需提前预约</span><span data-lang="zh-hant">機場接送——需提前預約</span></div>
+      <div class="inclusion-item"><span class="check">&#10003;</span><span data-lang="en" class="visible">Xnote &mdash; tour of 4 cenotes</span><span data-lang="zh-hans">Xnote——4 个天然井游览</span><span data-lang="zh-hant">Xnote——4 個天然井遊覽</span></div>
+      <div class="inclusion-item"><span class="check">&#10003;</span><span data-lang="en" class="visible">Xailing &mdash; ferry or catamaran to Isla Mujeres</span><span data-lang="zh-hans">Xailing——渡轮或帆船游览妇女岛</span><span data-lang="zh-hant">Xailing——渡輪或帆船遊覽婦女島</span></div>
+      <div class="inclusion-item"><span class="check">&#10003;</span><span data-lang="en" class="visible">Chich&eacute;n Itz&aacute; Deluxe Tour + cenote + Valladolid town</span><span data-lang="zh-hans">奇琴伊察豪华游 + 天然井 + 小镇</span><span data-lang="zh-hant">奇琴伊察豪華遊 + 天然井 + 小鎮</span></div>
+      <div class="inclusion-item"><span class="check">&#10003;</span><span data-lang="en" class="visible">5 art workshops: dance, pottery, weaving, painting, vegan gastronomy</span><span data-lang="zh-hans">5 种艺术工作坊：舞蹈、陶艺、编织、绘画、纯素美食</span><span data-lang="zh-hant">5 種藝術工作坊：舞蹈、陶藝、編織、繪畫、純素美食</span></div>
+      <div class="inclusion-item"><span class="check">&#10003;</span><span data-lang="en" class="visible">25% off SPA &middot; 20% off photography &middot; 40% off dolphin experience</span><span data-lang="zh-hans">SPA 25% 折扣 &middot; 摄影 20% &middot; 海豚体验 40%</span><span data-lang="zh-hant">SPA 25% 折扣 &middot; 攝影 20% &middot; 海豚體驗 40%</span></div>
+    </div>
+  </div>
+
+  <!-- BUDGET -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-icon">&#128176;</span>
+      <span class="section-title"><span data-lang="en" class="visible">Budget Estimator</span><span data-lang="zh-hans">预算估算器</span><span data-lang="zh-hant">預算估算器</span></span>
+    </div>
+    <div class="calc-card">
+      <div class="calc-row">
+        <div class="calc-group">
+          <div class="calc-label"><span data-lang="en" class="visible">Hotel</span><span data-lang="zh-hans">酒店</span><span data-lang="zh-hant">酒店</span></div>
+          <div class="radio-group">
+            <button class="radio-btn active" onclick="setCalc('hotel','arte',this)">Arte</button>
+            <button class="radio-btn" onclick="setCalc('hotel','mexico',this)">Mexico</button>
+          </div>
+        </div>
+        <div class="calc-group">
+          <div class="calc-label"><span data-lang="en" class="visible">Room</span><span data-lang="zh-hans">同住</span><span data-lang="zh-hant">同住</span></div>
+          <div class="radio-group">
+            <button class="radio-btn active" onclick="setCalc('people',2,this)">2 ppl</button>
+            <button class="radio-btn" onclick="setCalc('people',3,this)">3 ppl</button>
+          </div>
+        </div>
+        <div class="calc-group">
+          <div class="calc-label"><span data-lang="en" class="visible">Nights</span><span data-lang="zh-hans">晚数</span><span data-lang="zh-hant">晚數</span></div>
+          <div class="radio-group">
+            <button class="radio-btn active" onclick="setCalc('nights',4,this)">4</button>
+            <button class="radio-btn" onclick="setCalc('nights',5,this)">5</button>
+          </div>
+        </div>
+        <div class="calc-group">
+          <div class="calc-label"><span data-lang="en" class="visible">From</span><span data-lang="zh-hans">出发城市</span><span data-lang="zh-hant">出發城市</span></div>
+          <div class="radio-group">
+            <button class="radio-btn active" onclick="setCalc('city','yvr',this)">YVR</button>
+            <button class="radio-btn" onclick="setCalc('city','yyz',this)">YYZ</button>
+          </div>
+        </div>
+      </div>
+      <div class="calc-result">
+        <div class="result-label"><span data-lang="en" class="visible">Estimated total per person</span><span data-lang="zh-hans">每人预计总费用</span><span data-lang="zh-hant">每人預計總費用</span></div>
+        <div class="result-amount" id="result-total">$3,170</div>
+        <div class="result-sub">CAD &middot; <span data-lang="en" class="visible">as of July 2026, prices may change</span><span data-lang="zh-hans">截至 2026 年 7 月，价格可能变动</span><span data-lang="zh-hant">截至 2026 年 7 月，價格可能變動</span></div>
+        <div class="divider"></div>
+        <div class="result-breakdown">
+          <div class="breakdown-line"><span><span data-lang="en" class="visible">Hotel per person</span><span data-lang="zh-hans">酒店（每人分摊）</span><span data-lang="zh-hant">酒店（每人分攤）</span></span><span id="result-hotel">$2,370</span></div>
+          <div class="breakdown-line"><span><span data-lang="en" class="visible">Flights (est.)</span><span data-lang="zh-hans">机票（估算）</span><span data-lang="zh-hant">機票（估算）</span></span><span id="result-flight">~$800</span></div>
+          <div class="breakdown-line"><span><span data-lang="en" class="visible">Misc</span><span data-lang="zh-hans">杂费</span><span data-lang="zh-hant">雜費</span></span><span>~$200</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="rate-wrapper">
+      <table class="rate-table">
+        <thead><tr><th><span data-lang="en" class="visible">Config</span><span data-lang="zh-hans">配置</span><span data-lang="zh-hant">配置</span></th><th>Arte (CAD)</th><th>Mexico (CAD)</th></tr></thead>
+        <tbody>
+          <tr><td>2 <span data-lang="en" class="visible">ppl &middot; 4 nights</span><span data-lang="zh-hans">人 &middot; 4晚</span><span data-lang="zh-hant">人 &middot; 4晚</span></td><td class="rate-highlight">4,739</td><td class="rate-highlight">4,646</td></tr>
+          <tr><td>2 <span data-lang="en" class="visible">ppl &middot; 5 nights</span><span data-lang="zh-hans">人 &middot; 5晚</span><span data-lang="zh-hant">人 &middot; 5晚</span></td><td class="rate-highlight">5,883</td><td class="rate-highlight">5,792</td></tr>
+          <tr><td>3 <span data-lang="en" class="visible">ppl &middot; 4 nights</span><span data-lang="zh-hans">人 &middot; 4晚</span><span data-lang="zh-hant">人 &middot; 4晚</span></td><td class="rate-highlight">6,871 <span class="cheaper-badge">cheaper/pp</span></td><td class="rate-highlight">6,739 <span class="cheaper-badge">cheaper/pp</span></td></tr>
+          <tr><td>3 <span data-lang="en" class="visible">ppl &middot; 5 nights</span><span data-lang="zh-hans">人 &middot; 5晚</span><span data-lang="zh-hant">人 &middot; 5晚</span></td><td class="rate-highlight">8,531 <span class="cheaper-badge">cheaper/pp</span></td><td class="rate-highlight">8,398 <span class="cheaper-badge">cheaper/pp</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ITINERARY -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-icon">&#128197;</span>
+      <span class="section-title"><span data-lang="en" class="visible">Itinerary</span><span data-lang="zh-hans">行程安排</span><span data-lang="zh-hant">行程安排</span></span>
+    </div>
+    <div class="alert alert-info" style="margin-bottom:1.25rem;"><span>&#128172;</span><span><span data-lang="en" class="visible">Suggested plan only &mdash; no pressure. We'll have meetups and parties throughout.</span><span data-lang="zh-hans">这是建议行程，无需强制跟随。全程会有聚会和派对。</span><span data-lang="zh-hant">這是建議行程，無需強制跟隨。全程會有聚會和派對。</span></span></div>
+    <div class="itinerary">
+      <div class="day-block"><div class="day-line"><div class="day-dot">&#9992;&#65039;</div><div class="day-stem"></div></div><div class="day-content"><div class="day-label">Friday &middot; Nov 6</div><div class="day-title"><span data-lang="en" class="visible">Arrival</span><span data-lang="zh-hans">抵达日</span><span data-lang="zh-hant">抵達日</span></div><div class="day-events"><div class="event"><div class="event-time"><span data-lang="en" class="visible">All day</span><span data-lang="zh-hans">全天</span><span data-lang="zh-hant">全天</span></div><div><span data-lang="en" class="visible">Arrive in Cancun, check in, chill at the hotel</span><span data-lang="zh-hans">抵达坎昆，办理入住，在酒店休闲</span><span data-lang="zh-hant">抵達坎昆，辦理入住，在酒店休閒</span></div></div></div></div></div>
+      <div class="day-block"><div class="day-line"><div class="day-dot special" style="font-size:13px;color:#fff;">&#127874;</div><div class="day-stem"></div></div><div class="day-content"><div class="day-label">Saturday &middot; Nov 7</div><div class="day-title"><span data-lang="en" class="visible">Birthday Day</span><span data-lang="zh-hans">生日派对日</span><span data-lang="zh-hant">生日派對日</span></div><div class="day-events"><div class="event"><div class="event-time"><span data-lang="en" class="visible">Daytime</span><span data-lang="zh-hans">白天</span><span data-lang="zh-hant">白天</span></div><div><span data-lang="en" class="visible">Chill at the hotel</span><span data-lang="zh-hans">在酒店休闲</span><span data-lang="zh-hant">在酒店休閒</span></div></div><div class="event event-special"><div class="event-time">7 PM</div><div class="event-name"><span data-lang="en" class="visible">Group Dinner &#127869;&#65039;</span><span data-lang="zh-hans">集体晚餐 &#127869;&#65039;</span><span data-lang="zh-hant">集體晚餐 &#127869;&#65039;</span></div></div><div class="event event-special"><div class="event-time">9 PM</div><div class="event-name"><span data-lang="en" class="visible">Birthday Party till midnight &#127881;</span><span data-lang="zh-hans">生日派对到午夜 &#127881;</span><span data-lang="zh-hant">生日派對到午夜 &#127881;</span></div></div></div></div></div>
+      <div class="day-block"><div class="day-line"><div class="day-dot">&#129319;</div><div class="day-stem"></div></div><div class="day-content"><div class="day-label">Sunday &middot; Nov 8</div><div class="day-title">Xel-Ha</div><div class="day-events"><div class="event"><div class="event-time"><span data-lang="en" class="visible">All day</span><span data-lang="zh-hans">全天</span><span data-lang="zh-hant">全天</span></div><div><span data-lang="en" class="visible">Xel-Ha park &mdash; Mayan tropical water experience</span><span data-lang="zh-hans">Xel-Ha 公园——玛雅热带水上体验</span><span data-lang="zh-hant">Xel-Ha 公園——馬雅熱帶水上體驗</span></div></div></div></div></div>
+      <div class="day-block"><div class="day-line"><div class="day-dot">&#128167;</div><div class="day-stem"></div></div><div class="day-content"><div class="day-label">Monday &middot; Nov 9</div><div class="day-title"><span data-lang="en" class="visible">Explore</span><span data-lang="zh-hans">探索日</span><span data-lang="zh-hant">探索日</span></div><div class="day-events"><div class="event"><div class="event-time">A</div><div><span data-lang="en" class="visible">Xenotes tour &mdash; 4 stunning cenotes</span><span data-lang="zh-hans">Xenotes 之旅——4 个天然井</span><span data-lang="zh-hant">Xenotes 之旅——4 個天然井</span></div></div><div class="event"><div class="event-time">B</div><div><span data-lang="en" class="visible">Chich&eacute;n Itz&aacute; Deluxe Tour</span><span data-lang="zh-hans">奇琴伊察豪华游</span><span data-lang="zh-hant">奇琴伊察豪華遊</span></div></div></div></div></div>
+      <div class="day-block"><div class="day-line"><div class="day-dot">&#127796;</div><div class="day-stem"></div></div><div class="day-content"><div class="day-label">Tuesday &middot; Nov 10</div><div class="day-title"><span data-lang="en" class="visible">Adventure</span><span data-lang="zh-hans">冒险日</span><span data-lang="zh-hant">冒險日</span></div><div class="day-events"><div class="event"><div class="event-time">A</div><div><span data-lang="en" class="visible">Xcaret Park &mdash; cultural experience</span><span data-lang="zh-hans">Xcaret 公园——文化体验</span><span data-lang="zh-hant">Xcaret 公園——文化體驗</span></div></div><div class="event"><div class="event-time">B</div><div><span data-lang="en" class="visible">Xplor Park &mdash; jungle adventure (night: Xplor Fuego)</span><span data-lang="zh-hans">Xplor 公园——丛林探险（夜间版 Xplor Fuego）</span><span data-lang="zh-hant">Xplor 公園——叢林探險（夜間版 Xplor Fuego）</span></div></div></div></div></div>
+      <div class="day-block"><div class="day-line"><div class="day-dot">&#127968;</div></div><div class="day-content" style="padding-bottom:0"><div class="day-label">Wednesday &middot; Nov 11</div><div class="day-title"><span data-lang="en" class="visible">Departure</span><span data-lang="zh-hans">返程日</span><span data-lang="zh-hant">返程日</span></div><div class="day-events"><div class="event"><div class="event-time"><span data-lang="en" class="visible">Morning</span><span data-lang="zh-hans">上午</span><span data-lang="zh-hant">上午</span></div><div><span data-lang="en" class="visible">Final chill, check out, return home</span><span data-lang="zh-hans">最后在酒店放松，退房返程</span><span data-lang="zh-hant">最後在酒店放鬆，退房返程</span></div></div></div></div></div>
+    </div>
+  </div>
+
+  <!-- ACTIVITIES -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-icon">&#127919;</span>
+      <span class="section-title"><span data-lang="en" class="visible">Activities &mdash; All Included</span><span data-lang="zh-hans">活动——全部包含在内</span><span data-lang="zh-hant">活動——全部包含在內</span></span>
+    </div>
+    <div class="alert alert-info" style="margin-bottom:1rem;"><span>&#128204;</span><span><span data-lang="en" class="visible">All activities are covered by your hotel fee, but you need to <strong>book each one separately in advance</strong>.</span><span data-lang="zh-hans">以下活动均含在酒店费用中，但每项需要<strong>提前单独预订</strong>。</span><span data-lang="zh-hant">以下活動均含在酒店費用中，但每項需要<strong>提前單獨預訂</strong>。</span></span></div>
+    <div class="activity-grid">
+      <div class="activity-card"><div class="act-emoji">&#129319;</div><div class="act-name">Xel-Ha</div><div class="act-desc"><span data-lang="en" class="visible">Mayan tropical water park with snorkeling, swimming, and natural pools. Highly recommended.</span><span data-lang="zh-hans">玛雅热带水上乐园，有浮潜、游泳和天然水池，强烈推荐。</span><span data-lang="zh-hant">馬雅熱帶水上樂園，有浮潛、游泳和天然水池，強烈推薦。</span></div><div><span class="act-badge">&#11088; Highly Recommended</span></div><a class="act-link" href="https://www.xcaret.com/en/parks-and-tours/xelha-admission/" target="_blank">Book &#8599;</a></div>
+      <div class="activity-card"><div class="act-emoji">&#129413;</div><div class="act-name">Xplor</div><div class="act-desc"><span data-lang="en" class="visible">Jungle adventure with zip lines and underground rivers. Night version Xplor Fuego available.</span><span data-lang="zh-hans">丛林探险，含飞索和地下河流。夜间版 Xplor Fuego 同样精彩。</span><span data-lang="zh-hant">叢林探險，含飛索和地下河流。夜間版 Xplor Fuego 同樣精彩。</span></div><div><span class="act-badge">&#11088; Highly Recommended</span></div><a class="act-link" href="https://www.xcaret.com/en/parks-and-tours/about-xplor/" target="_blank">Book &#8599;</a></div>
+      <div class="activity-card"><div class="act-emoji">&#128167;</div><div class="act-name">Xenotes</div><div class="act-desc"><span data-lang="en" class="visible">Tour through 4 cenotes &mdash; geological sinkholes unique to Yucat&aacute;n. Rare and photogenic.</span><span data-lang="zh-hans">游览 4 个天然井，尤卡坦半岛独特地质奇观，极具拍照价值。</span><span data-lang="zh-hant">遊覽 4 個天然井，猶加敦半島獨特地質奇觀，極具拍照價值。</span></div><a class="act-link" href="https://www.xcaret.com/en/parks-and-tours/about-xenotes/" target="_blank">Book &#8599;</a></div>
+      <div class="activity-card"><div class="act-emoji">&#127963;&#65039;</div><div class="act-name">Chich&eacute;n Itz&aacute; Deluxe</div><div class="act-desc"><span data-lang="en" class="visible">Iconic Mayan pyramid + colonial town Valladolid + a cenote stop.</span><span data-lang="zh-hans">标志性玛雅金字塔 + 殖民小镇巴利亚多利德 + 途中天然井。</span><span data-lang="zh-hant">標誌性馬雅金字塔 + 殖民小鎮巴利亞多利德 + 途中天然井。</span></div><a class="act-link" href="https://www.xcaret.com/en/parks-and-tours/tour-to-chichen-itza-deluxe/" target="_blank">Book &#8599;</a></div>
+      <div class="activity-card"><div class="act-emoji">&#9973;&#65039;</div><div class="act-name">Xailing</div><div class="act-desc"><span data-lang="en" class="visible">Ferry or catamaran to Isla Mujeres. Catamaran includes 1hr Caribbean snorkeling + free drinks.</span><span data-lang="zh-hans">渡轮或帆船前往妇女岛。帆船含 1 小时加勒比海浮潜及免费饮品。</span><span data-lang="zh-hant">渡輪或帆船前往婦女島。帆船含 1 小時加勒比海浮潛及免費飲品。</span></div><a class="act-link" href="https://www.xcaret.com/en/parks-and-tours/about-xailing/" target="_blank">Book &#8599;</a></div>
+      <div class="activity-card"><div class="act-emoji">&#127807;</div><div class="act-name">Xcaret Park</div><div class="act-desc"><span data-lang="en" class="visible">The flagship park &mdash; underground rivers, wildlife, and Mexico's biggest cultural show at night.</span><span data-lang="zh-hans">旗舰公园，含地下河流、野生动物和墨西哥最大文化表演。</span><span data-lang="zh-hant">旗艦公園，含地下河流、野生動物和墨西哥最大文化表演。</span></div><a class="act-link" href="https://www.xcaret.com" target="_blank">Learn more &#8599;</a></div>
+    </div>
+  </div>
+
+  <!-- TIPS -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-icon">&#128161;</span>
+      <span class="section-title"><span data-lang="en" class="visible">Tips</span><span data-lang="zh-hans">实用贴士</span><span data-lang="zh-hant">實用貼士</span></span>
+    </div>
+    <div class="card"><div class="card-title">&#9992;&#65039; <span data-lang="en" class="visible">Flights</span><span data-lang="zh-hans">机票</span><span data-lang="zh-hant">機票</span></div><p><span data-lang="en" class="visible">Use an Aeroplan credit card for free luggage. Arrive early, leave late. The airport is 1 hour from the hotel &mdash; plan your transfers carefully.</span><span data-lang="zh-hans">使用 Aeroplan 信用卡可免费托运行李。建议早去晚回，机场到酒店约 1 小时车程，请提前规划接送。</span><span data-lang="zh-hant">使用 Aeroplan 信用卡可免費托運行李。建議早去晚回，機場到酒店約 1 小時車程，請提前規劃接送。</span></p></div>
+    <div class="card"><div class="card-title">&#127976; <span data-lang="en" class="visible">Why stay at Xcaret?</span><span data-lang="zh-hans">为什么选择 Xcaret？</span><span data-lang="zh-hant">為什麼選擇 Xcaret？</span></div><p><span data-lang="en" class="visible">Xcaret owns most of Cancun's tourism services. Staying elsewhere means paying separately for every park. The hotel is in Playa del Carmen &mdash; 1 hour from downtown Cancun &mdash; so coordinating visits from different hotels is very difficult.</span><span data-lang="zh-hans">Xcaret 拥有坎昆大部分旅游服务，入住其他酒店需单独付费。酒店位于普拉亚德尔卡门，距坎昆市中心约 1 小时，分开住很不方便。</span><span data-lang="zh-hant">Xcaret 擁有坎昆大部分旅遊服務，入住其他酒店需單獨付費。酒店位於普拉亞德爾卡門，距坎昆市中心約 1 小時，分開住很不方便。</span></p></div>
+    <div class="card"><div class="card-title">&#128197; <span data-lang="en" class="visible">Days off</span><span data-lang="zh-hans">请假安排</span><span data-lang="zh-hant">請假安排</span></div><p><span data-lang="en" class="visible">At minimum: <strong>Nov 9 (Mon)</strong> and <strong>Nov 10 (Tue)</strong>. Also Nov 6 (Fri) depending on departure. Apply for remote work if available.</span><span data-lang="zh-hans">最少需请：<strong>11/9（周一）</strong>和 <strong>11/10（周二）</strong>。根据出发时间可能还需 11/6（周五）。条件允许可申请远程办公。</span><span data-lang="zh-hant">最少需請：<strong>11/9（週一）</strong>和 <strong>11/10（週二）</strong>。根據出發時間可能還需 11/6（週五）。條件允許可申請遠端辦公。</span></p></div>
+  </div>
+
+</main>
+
+<footer>Xcaret &middot; Cancun &middot; November 2026</footer>
+
+<script>
+// ── LANG ──────────────────────────────────────────────────────────────────────
+function setLang(lang) {
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector('.lang-btn[onclick="setLang(\'' + lang + '\')"]').classList.add('active');
+  document.querySelectorAll('[data-lang]').forEach(el =>
+    el.classList.toggle('visible', el.dataset.lang === lang));
+}
+setLang('en');
+
+// ── BUDGET CALC ───────────────────────────────────────────────────────────────
+const calcState = { hotel: 'arte', people: 2, nights: 4, city: 'yvr' };
+const rates = {
+  arte:   { 2: { 4: 4739, 5: 5883 }, 3: { 4: 6871, 5: 8531 } },
+  mexico: { 2: { 4: 4646, 5: 5792 }, 3: { 4: 6739, 5: 8398 } }
+};
+const flightCosts = { yvr: 800, yyz: 500 };
+
+function setCalc(key, val, btn) {
+  calcState[key] = val;
+  btn.parentElement.querySelectorAll('.radio-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const hotelPP = Math.round(rates[calcState.hotel][calcState.people][calcState.nights] / calcState.people);
+  const flight = flightCosts[calcState.city];
+  document.getElementById('result-total').textContent = '$' + (hotelPP + flight + 200).toLocaleString();
+  document.getElementById('result-hotel').textContent = '$' + hotelPP.toLocaleString();
+  document.getElementById('result-flight').textContent = '~$' + flight;
+}
+
+// ── CHECKLIST ─────────────────────────────────────────────────────────────────
+function toggleCheck(el) { el.classList.toggle('done'); }
+
+// ── FLIGHT BUDDY FINDER ───────────────────────────────────────────────────────
+const SHEET_API = 'https://script.google.com/macros/s/AKfycbzD3lo3wKi0CNHKVikJNC9JAUYG0kEj4QrXhf1vaJe6Gp2-6NKksJvgjs-R00ziDrx2/exec';
+
+let pendingFlight = null; // AI lookup result, waiting for user to confirm
+let myName = '';          // remember name after registering to highlight
+
+// ── 從 Sheet 讀取所有航班並渲染 ───────────────────────────────────────────────
+async function loadAndRender(highlightName) {
+  const outEl = document.getElementById('passengers-outbound');
+  const retEl = document.getElementById('passengers-return');
+  outEl.innerHTML = '<div class="empty-state" style="padding:1rem;"><span class="loading-dots"><span></span><span></span><span></span></span></div>';
+  retEl.innerHTML = '';
+
+  try {
+    const res  = await fetch(SHEET_API + '?action=read');
+    const data = await res.json();
+    if (data.error) throw new Error(data.error);
+    renderPassengers(data.flights || [], highlightName);
+  } catch(e) {
+    outEl.innerHTML = '<div class="empty-state" style="padding:1rem;color:#b91c1c;">Could not load flights. Check connection.</div>';
+    retEl.innerHTML = '';
+    console.error(e);
+  }
+}
+
+// ── AI 查航班時刻 ─────────────────────────────────────────────────────────────
+async function lookupFlight() {
+  const name     = document.getElementById('input-name').value.trim();
+  const flightNum = document.getElementById('input-flight').value.trim().toUpperCase();
+  const date     = document.getElementById('input-date').value;
+
+  if (!name)      { alert('Please enter your name.'); return; }
+  if (!flightNum) { alert('Please enter a flight number, e.g. AC865'); return; }
+  if (!date)      { alert('Please select a date.'); return; }
+
+  const btn      = document.getElementById('lookup-btn');
+  const statusEl = document.getElementById('lookup-status');
+  btn.disabled   = true;
+  statusEl.innerHTML = '<span class="loading-dots"><span></span><span></span><span></span></span> Looking up...';
+  document.getElementById('flight-info-result').style.display = 'none';
+  pendingFlight = null;
+
+  try {
+    const d       = new Date(date + 'T12:00:00');
+    const dateStr = d.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+
+    const prompt = 'You are an aviation schedule assistant.\n\nFlight: ' + flightNum + '\nDate: ' + dateStr + '\n\nReturn ONLY a raw JSON object:\n{\n  "airline": "Full airline name",\n  "flightNum": "' + flightNum + '",\n  "fromCode": "3-letter IATA code, e.g. YVR",\n  "fromCity": "City name, e.g. Vancouver",\n  "toCode": "3-letter IATA code, e.g. CUN",\n  "toCity": "City name, e.g. Cancun",\n  "dep": "HH:MM in 24h local time, e.g. 10:35",\n  "arr": "HH:MM in 24h local time, e.g. 18:50",\n  "confidence": "high or medium or low",\n  "note": "brief note or empty string"\n}';
+
+    const res  = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-6', max_tokens: 512,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+    if (!res.ok) throw new Error('API ' + res.status);
+    const apiData  = await res.json();
+    const raw      = (apiData.content || []).find(b => b.type === 'text')?.text || '';
+    const match    = raw.match(/\{[\s\S]*?\}/);
+    if (!match) throw new Error('No JSON');
+    const info = JSON.parse(match[0]);
+
+    // Build trip string e.g. "YVR-CUN" and time string e.g. "10:35-18:50"
+    const trip    = (info.fromCode || '?') + '-' + (info.toCode || '?');
+    const timeStr = (info.dep || '?') + '-' + (info.arr || '?');
+    // Date label matching Sheet format e.g. "Nov 06"
+    const dateLabel = d.toLocaleDateString('en-US', { month: 'short', day: '2-digit' }).replace(',', '');
+
+    pendingFlight = { name, trip, date: dateLabel, time: timeStr, flight: flightNum };
+
+    // Show info card
+    document.getElementById('fi-flightnum').textContent = (info.airline || '') + ' ' + flightNum;
+    const confMap = { high: '&#10003; Confirmed', medium: '~ Estimated', low: '? Approximate' };
+    document.getElementById('fi-confidence').innerHTML = confMap[info.confidence] || '';
+    document.getElementById('fi-from').textContent = (info.fromCode || '') + ' ' + (info.fromCity || '');
+    document.getElementById('fi-to').textContent   = (info.toCode   || '') + ' ' + (info.toCity   || '');
+    document.getElementById('fi-dep').textContent  = info.dep || '?';
+    document.getElementById('fi-arr').textContent  = info.arr || '?';
+    document.getElementById('fi-dur').textContent  = '—';
+    const noteEl = document.getElementById('fi-note');
+    if (info.note) { noteEl.textContent = info.note; noteEl.style.display = 'block'; }
+    else           { noteEl.style.display = 'none'; }
+
+    document.getElementById('flight-info-result').style.display = 'block';
+    statusEl.textContent = '';
+  } catch(e) {
+    statusEl.textContent = 'Could not look up flight. Check the number and try again.';
+    console.error(e);
+  }
+  btn.disabled = false;
+}
+
+// ── 寫入 Sheet ────────────────────────────────────────────────────────────────
+async function registerFlight() {
+  if (!pendingFlight) return;
+
+  const regBtn   = document.querySelector('#flight-info-result .btn-primary');
+  const statusEl = document.getElementById('lookup-status');
+  regBtn.disabled = true;
+  regBtn.textContent = 'Saving...';
+
+  try {
+    const p = pendingFlight;
+    const url = SHEET_API
+      + '?action=write'
+      + '&name='   + encodeURIComponent(p.name)
+      + '&trip='   + encodeURIComponent(p.trip)
+      + '&date='   + encodeURIComponent(p.date)
+      + '&time='   + encodeURIComponent(p.time)
+      + '&flight=' + encodeURIComponent(p.flight);
+    const res  = await fetch(url);
+    const data = await res.json();
+    if (data.error) throw new Error(data.error);
+
+    myName = pendingFlight.name;
+    document.getElementById('flight-info-result').style.display = 'none';
+    document.getElementById('input-name').value   = '';
+    document.getElementById('input-flight').value = '';
+    pendingFlight = null;
+    statusEl.textContent = '';
+
+    await loadAndRender(myName);
+  } catch(e) {
+    statusEl.textContent = 'Save failed: ' + e.message;
+    console.error(e);
+  }
+  regBtn.disabled = false;
+  regBtn.innerHTML = '&#10003; Add me to this flight';
+}
+
+// ── 渲染航班列表（依 trip 的目的地判斷去/回程）────────────────────────────────
+function renderPassengers(flights, highlightName) {
+  // 去程：trip 以 CUN 結尾 → outbound（飛往坎昆）
+  // 回程：trip 以 CUN 開頭 → return（從坎昆回來）
+  // 如果沒有 trip 格式，用日期兜底（Nov 06/07 = 去程，Nov 11 = 回程）
+  function isOutbound(f) {
+    if (f.trip) {
+      const parts = f.trip.toUpperCase().split('-');
+      return parts[parts.length - 1] === 'CUN';
+    }
+    return f.date && (f.date.includes('06') || f.date.includes('07') || f.date.includes('05'));
+  }
+
+  // Group by trip + date (同班機的人合併)
+  function groupAndSort(list) {
+    const groups = {};
+    for (const f of list) {
+      const k = (f.flight || f.trip) + '|' + f.date;
+      if (!groups[k]) groups[k] = { ...f, names: [] };
+      if (f.name && !groups[k].names.includes(f.name)) groups[k].names.push(f.name);
+    }
+    return Object.values(groups).sort((a, b) => {
+      // Sort by date text (Nov 05 < Nov 06 etc.)
+      return (a.date || '').localeCompare(b.date || '') || (a.flight || '').localeCompare(b.flight || '');
+    });
+  }
+
+  const outbound = groupAndSort(flights.filter(f =>  isOutbound(f)));
+  const ret      = groupAndSort(flights.filter(f => !isOutbound(f)));
+
+  function renderGroup(list, containerId, emptyMsg) {
+    const el = document.getElementById(containerId);
+    if (list.length === 0) {
+      el.innerHTML = '<div class="empty-state" style="padding:1.25rem 1rem;">' + emptyMsg + '</div>';
+      return;
+    }
+    el.innerHTML = list.map(g => {
+      const isMyFlight  = highlightName && g.names.includes(highlightName);
+      const names       = g.names.map(n =>
+        '<span class="name-chip' + (n === highlightName ? ' highlight' : '') + '">' + n + '</span>'
+      ).join('');
+      const matchBadge  = isMyFlight ? '<span class="match-badge">You\'re on this one!</span>' : '';
+      const flightLabel = g.flight && g.flight !== 'TBD' ? g.flight : '';
+      const tripLabel   = g.trip || '';
+      const timeLabel   = g.time && g.time !== 'TBD' ? g.time : '';
+      return '<div class="passenger-card">'
+        + '<div class="passenger-header">'
+        + '<div>'
+        + (flightLabel ? '<span class="flight-route">' + flightLabel + '</span>' : '')
+        + (tripLabel   ? '<span style="color:var(--muted);font-size:0.8rem;margin-left:' + (flightLabel ? '8px' : '0') + ';">' + tripLabel + '</span>' : '')
+        + '</div>'
+        + '<div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">'
+        + '<span class="flight-date-tag">' + (g.date || '') + (timeLabel ? ' &middot; ' + timeLabel : '') + '</span>'
+        + matchBadge
+        + '</div></div>'
+        + '<div class="passenger-names">' + names + '</div>'
+        + '</div>';
+    }).join('');
+  }
+
+  renderGroup(outbound, 'passengers-outbound', 'No outbound flights yet &#9992;&#65039;');
+  renderGroup(ret,      'passengers-return',   'No return flights yet &#127968;');
+}
+
+// 頁面載入就從 Sheet 拉資料
+loadAndRender(null);
+</script>
+</body>
+</html>
