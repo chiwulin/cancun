@@ -3,7 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Welcome On Board</title>
+<title>Welcome On Board 🌴</title>
+<meta property="og:title" content="Welcome On Board 🌴" />
+<meta property="og:description" content="Cancun · Mexico · November 2026 — Company trip info &amp; flight buddy finder" />
+<meta property="og:image" content="https://raw.githubusercontent.com/chiwulin/cancun/main/Image.jpeg" />
+<meta property="og:image:width" content="486" />
+<meta property="og:image:height" content="411" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Welcome On Board 🌴" />
+<meta name="twitter:description" content="Cancun · Mexico · November 2026 — Company trip info &amp; flight buddy finder" />
+<meta name="twitter:image" content="https://raw.githubusercontent.com/chiwulin/cancun/main/Image.jpeg" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -322,55 +332,42 @@
       <span class="section-title"><span data-lang="en" class="visible">Flight Buddy Finder</span><span data-lang="zh-hans">航班同行查询</span><span data-lang="zh-hant">航班同行查詢</span></span>
     </div>
     <div class="alert alert-info" style="margin-bottom:1rem;">
-      <span>&#10024;</span>
+      <span>&#128204;</span>
       <div>
-        <span data-lang="en" class="visible">Enter your flight number, date, and name. AI will look up your flight schedule and match you with teammates on the same plane.</span>
-        <span data-lang="zh-hans">输入航班号、日期和姓名，AI 会自动查询航班时刻表，并找出同班机的队友。</span>
-        <span data-lang="zh-hant">輸入航班號、日期和姓名，AI 會自動查詢航班時刻表，並找出同班機的隊友。</span>
+        <span data-lang="en" class="visible">Fill in your flight details to see who you're flying with.</span>
+        <span data-lang="zh-hans">填入你的航班资讯，看看谁跟你同班机。</span>
+        <span data-lang="zh-hant">填入你的航班資訊，看看誰跟你同班機。</span>
       </div>
     </div>
 
     <div class="buddy-form">
       <div class="form-row">
         <div class="form-group">
-          <label class="form-label"><span data-lang="en" class="visible">Your name</span><span data-lang="zh-hans">你的姓名</span><span data-lang="zh-hant">你的姓名</span></label>
+          <label class="form-label"><span data-lang="en" class="visible">Your name</span><span data-lang="zh-hans">姓名</span><span data-lang="zh-hant">姓名</span></label>
           <input class="form-input" id="input-name" type="text" placeholder="e.g. Justin" />
         </div>
         <div class="form-group">
-          <label class="form-label"><span data-lang="en" class="visible">Flight number</span><span data-lang="zh-hans">航班号</span><span data-lang="zh-hant">航班號</span></label>
-          <input class="form-input" id="input-flight" type="text" placeholder="e.g. AC865" oninput="this.value=this.value.toUpperCase()" />
+          <label class="form-label"><span data-lang="en" class="visible">Route</span><span data-lang="zh-hans">路线</span><span data-lang="zh-hant">路線</span></label>
+          <input class="form-input" id="input-trip" type="text" placeholder="e.g. YVR-CUN" oninput="this.value=this.value.toUpperCase()" />
         </div>
         <div class="form-group">
           <label class="form-label"><span data-lang="en" class="visible">Date</span><span data-lang="zh-hans">日期</span><span data-lang="zh-hant">日期</span></label>
-          <input class="form-input" id="input-date" type="date" min="2026-11-06" max="2026-11-11" value="2026-11-06" />
+          <input class="form-input" id="input-date" type="text" placeholder="e.g. Nov 06" />
+        </div>
+        <div class="form-group">
+          <label class="form-label"><span data-lang="en" class="visible">Time (dep-arr)</span><span data-lang="zh-hans">时间（起降）</span><span data-lang="zh-hant">時間（起降）</span></label>
+          <input class="form-input" id="input-time" type="text" placeholder="e.g. 10:35-18:50" />
+        </div>
+        <div class="form-group">
+          <label class="form-label"><span data-lang="en" class="visible">Flight no.</span><span data-lang="zh-hans">航班号</span><span data-lang="zh-hant">航班號</span></label>
+          <input class="form-input" id="input-flight" type="text" placeholder="e.g. AC865" oninput="this.value=this.value.toUpperCase()" />
         </div>
       </div>
       <div style="display:flex;gap:0.75rem;align-items:center;flex-wrap:wrap;">
-        <button class="btn-primary" id="lookup-btn" onclick="lookupFlight()">
-          <span data-lang="en" class="visible">Look up flight</span><span data-lang="zh-hans">查询航班</span><span data-lang="zh-hant">查詢航班</span>
+        <button class="btn-primary" id="submit-btn" onclick="submitFlight()">
+          <span data-lang="en" class="visible">+ Add my flight</span><span data-lang="zh-hans">+ 加入我的航班</span><span data-lang="zh-hant">+ 加入我的航班</span>
         </button>
-        <span id="lookup-status" style="font-size:0.825rem;color:var(--muted);"></span>
-      </div>
-
-      <div id="flight-info-result" style="display:none;" class="flight-info-box">
-        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:8px;">
-          <strong id="fi-flightnum" style="font-size:0.95rem;"></strong>
-          <span id="fi-confidence" style="font-size:11px;color:var(--muted);"></span>
-        </div>
-        <div class="flight-info-row">
-          <div><div class="fi-label"><span data-lang="en" class="visible">From</span><span data-lang="zh-hans">出发</span><span data-lang="zh-hant">出發</span></div><div class="fi-val" id="fi-from">&mdash;</div></div>
-          <div style="color:var(--muted);font-size:1.1rem;padding-top:1rem;">&rarr;</div>
-          <div><div class="fi-label"><span data-lang="en" class="visible">To</span><span data-lang="zh-hans">目的地</span><span data-lang="zh-hant">目的地</span></div><div class="fi-val" id="fi-to">&mdash;</div></div>
-          <div><div class="fi-label"><span data-lang="en" class="visible">Departs</span><span data-lang="zh-hans">起飞</span><span data-lang="zh-hant">起飛</span></div><div class="fi-val" id="fi-dep">&mdash;</div></div>
-          <div><div class="fi-label"><span data-lang="en" class="visible">Arrives</span><span data-lang="zh-hans">抵达</span><span data-lang="zh-hant">抵達</span></div><div class="fi-val" id="fi-arr">&mdash;</div></div>
-          <div><div class="fi-label"><span data-lang="en" class="visible">Duration</span><span data-lang="zh-hans">飞行时长</span><span data-lang="zh-hant">飛行時長</span></div><div class="fi-val" id="fi-dur">&mdash;</div></div>
-        </div>
-        <div id="fi-note" style="margin-top:0.5rem;font-size:0.8rem;color:var(--muted);display:none;"></div>
-        <div style="margin-top:0.875rem;">
-          <button class="btn-primary" onclick="registerFlight()" style="font-size:0.825rem;padding:7px 16px;">
-            <span data-lang="en" class="visible">&#10003; Add me to this flight</span><span data-lang="zh-hans">&#10003; 把我加入这班机</span><span data-lang="zh-hant">&#10003; 把我加入這班機</span>
-          </button>
-        </div>
+        <span id="submit-status" style="font-size:0.825rem;color:var(--muted);"></span>
       </div>
     </div>
 
@@ -388,9 +385,9 @@
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:0.6rem;">
         <span style="font-size:13px;">&#128747;</span>
         <span style="font-size:0.8rem;font-weight:600;color:var(--text);">
-          <span data-lang="en" class="visible">Outbound &mdash; Nov 6 &ndash; 7</span>
-          <span data-lang="zh-hans">去程 — 11/6 – 7</span>
-          <span data-lang="zh-hant">去程 — 11/6 – 7</span>
+          <span data-lang="en" class="visible">Outbound &mdash; Nov 5 &ndash; 7</span>
+          <span data-lang="zh-hans">去程 — 11/5 – 7</span>
+          <span data-lang="zh-hant">去程 — 11/5 – 7</span>
         </span>
       </div>
       <div id="passengers-outbound" class="passengers-list" style="margin-bottom:1.5rem;"></div>
@@ -586,160 +583,105 @@ function toggleCheck(el) { el.classList.toggle('done'); }
 
 // ── FLIGHT BUDDY FINDER ───────────────────────────────────────────────────────
 const SHEET_API = 'https://script.google.com/macros/s/AKfycbzD3lo3wKi0CNHKVikJNC9JAUYG0kEj4QrXhf1vaJe6Gp2-6NKksJvgjs-R00ziDrx2/exec';
+let myName = '';
 
-let pendingFlight = null; // AI lookup result, waiting for user to confirm
-let myName = '';          // remember name after registering to highlight
-
-// ── 從 Sheet 讀取所有航班並渲染 ───────────────────────────────────────────────
+// ── 讀取並渲染 ────────────────────────────────────────────────────────────────
 async function loadAndRender(highlightName) {
   const outEl = document.getElementById('passengers-outbound');
   const retEl = document.getElementById('passengers-return');
   outEl.innerHTML = '<div class="empty-state" style="padding:1rem;"><span class="loading-dots"><span></span><span></span><span></span></span></div>';
   retEl.innerHTML = '';
-
   try {
     const res  = await fetch(SHEET_API + '?action=read');
     const data = await res.json();
     if (data.error) throw new Error(data.error);
     renderPassengers(data.flights || [], highlightName);
   } catch(e) {
-    outEl.innerHTML = '<div class="empty-state" style="padding:1rem;color:#b91c1c;">Could not load flights. Check connection.</div>';
+    outEl.innerHTML = '<div class="empty-state" style="padding:1rem;color:#b91c1c;">Could not load flights.</div>';
     retEl.innerHTML = '';
-    console.error(e);
   }
 }
 
-// ── AI 查航班時刻 ─────────────────────────────────────────────────────────────
-async function lookupFlight() {
-  const name     = document.getElementById('input-name').value.trim();
-  const flightNum = document.getElementById('input-flight').value.trim().toUpperCase();
-  const date     = document.getElementById('input-date').value;
+// ── 提交 ─────────────────────────────────────────────────────────────────────
+async function submitFlight() {
+  const name   = document.getElementById('input-name').value.trim();
+  const trip   = document.getElementById('input-trip').value.trim().toUpperCase();
+  const date   = document.getElementById('input-date').value.trim();
+  const time   = document.getElementById('input-time').value.trim();
+  const flight = document.getElementById('input-flight').value.trim().toUpperCase();
 
-  if (!name)      { alert('Please enter your name.'); return; }
-  if (!flightNum) { alert('Please enter a flight number, e.g. AC865'); return; }
-  if (!date)      { alert('Please select a date.'); return; }
+  if (!name)  { alert('Please enter your name.'); return; }
+  if (!trip)  { alert('Please enter a route, e.g. YVR-CUN'); return; }
+  if (!date)  { alert('Please enter a date, e.g. Nov 06'); return; }
 
-  const btn      = document.getElementById('lookup-btn');
-  const statusEl = document.getElementById('lookup-status');
+  const btn      = document.getElementById('submit-btn');
+  const statusEl = document.getElementById('submit-status');
   btn.disabled   = true;
-  statusEl.innerHTML = '<span class="loading-dots"><span></span><span></span><span></span></span> Looking up...';
-  document.getElementById('flight-info-result').style.display = 'none';
-  pendingFlight = null;
+  statusEl.innerHTML = '<span class="loading-dots"><span></span><span></span><span></span></span>';
 
   try {
-    const d       = new Date(date + 'T12:00:00');
-    const dateStr = d.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
-
-    const prompt = 'You are an aviation schedule assistant.\n\nFlight: ' + flightNum + '\nDate: ' + dateStr + '\n\nReturn ONLY a raw JSON object:\n{\n  "airline": "Full airline name",\n  "flightNum": "' + flightNum + '",\n  "fromCode": "3-letter IATA code, e.g. YVR",\n  "fromCity": "City name, e.g. Vancouver",\n  "toCode": "3-letter IATA code, e.g. CUN",\n  "toCity": "City name, e.g. Cancun",\n  "dep": "HH:MM in 24h local time, e.g. 10:35",\n  "arr": "HH:MM in 24h local time, e.g. 18:50",\n  "confidence": "high or medium or low",\n  "note": "brief note or empty string"\n}';
-
-    const res  = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-6', max_tokens: 512,
-        messages: [{ role: 'user', content: prompt }]
-      })
-    });
-    if (!res.ok) throw new Error('API ' + res.status);
-    const apiData  = await res.json();
-    const raw      = (apiData.content || []).find(b => b.type === 'text')?.text || '';
-    const match    = raw.match(/\{[\s\S]*?\}/);
-    if (!match) throw new Error('No JSON');
-    const info = JSON.parse(match[0]);
-
-    // Build trip string e.g. "YVR-CUN" and time string e.g. "10:35-18:50"
-    const trip    = (info.fromCode || '?') + '-' + (info.toCode || '?');
-    const timeStr = (info.dep || '?') + '-' + (info.arr || '?');
-    // Date label matching Sheet format e.g. "Nov 06"
-    const dateLabel = d.toLocaleDateString('en-US', { month: 'short', day: '2-digit' }).replace(',', '');
-
-    pendingFlight = { name, trip, date: dateLabel, time: timeStr, flight: flightNum };
-
-    // Show info card
-    document.getElementById('fi-flightnum').textContent = (info.airline || '') + ' ' + flightNum;
-    const confMap = { high: '&#10003; Confirmed', medium: '~ Estimated', low: '? Approximate' };
-    document.getElementById('fi-confidence').innerHTML = confMap[info.confidence] || '';
-    document.getElementById('fi-from').textContent = (info.fromCode || '') + ' ' + (info.fromCity || '');
-    document.getElementById('fi-to').textContent   = (info.toCode   || '') + ' ' + (info.toCity   || '');
-    document.getElementById('fi-dep').textContent  = info.dep || '?';
-    document.getElementById('fi-arr').textContent  = info.arr || '?';
-    document.getElementById('fi-dur').textContent  = '—';
-    const noteEl = document.getElementById('fi-note');
-    if (info.note) { noteEl.textContent = info.note; noteEl.style.display = 'block'; }
-    else           { noteEl.style.display = 'none'; }
-
-    document.getElementById('flight-info-result').style.display = 'block';
-    statusEl.textContent = '';
-  } catch(e) {
-    statusEl.textContent = 'Could not look up flight. Check the number and try again.';
-    console.error(e);
-  }
-  btn.disabled = false;
-}
-
-// ── 寫入 Sheet ────────────────────────────────────────────────────────────────
-async function registerFlight() {
-  if (!pendingFlight) return;
-
-  const regBtn   = document.querySelector('#flight-info-result .btn-primary');
-  const statusEl = document.getElementById('lookup-status');
-  regBtn.disabled = true;
-  regBtn.textContent = 'Saving...';
-
-  try {
-    const p = pendingFlight;
-    const url = SHEET_API
-      + '?action=write'
-      + '&name='   + encodeURIComponent(p.name)
-      + '&trip='   + encodeURIComponent(p.trip)
-      + '&date='   + encodeURIComponent(p.date)
-      + '&time='   + encodeURIComponent(p.time)
-      + '&flight=' + encodeURIComponent(p.flight);
+    const url = SHEET_API + '?action=write'
+      + '&name='   + encodeURIComponent(name)
+      + '&trip='   + encodeURIComponent(trip)
+      + '&date='   + encodeURIComponent(date)
+      + '&time='   + encodeURIComponent(time)
+      + '&flight=' + encodeURIComponent(flight);
     const res  = await fetch(url);
     const data = await res.json();
     if (data.error) throw new Error(data.error);
 
-    myName = pendingFlight.name;
-    document.getElementById('flight-info-result').style.display = 'none';
+    myName = name;
+    statusEl.textContent = '\u2713 Saved!';
+    setTimeout(() => statusEl.textContent = '', 2000);
     document.getElementById('input-name').value   = '';
+    document.getElementById('input-trip').value   = '';
+    document.getElementById('input-date').value   = '';
+    document.getElementById('input-time').value   = '';
     document.getElementById('input-flight').value = '';
-    pendingFlight = null;
-    statusEl.textContent = '';
-
     await loadAndRender(myName);
   } catch(e) {
     statusEl.textContent = 'Save failed: ' + e.message;
-    console.error(e);
   }
-  regBtn.disabled = false;
-  regBtn.innerHTML = '&#10003; Add me to this flight';
+  btn.disabled = false;
 }
 
-// ── 渲染航班列表（依 trip 的目的地判斷去/回程）────────────────────────────────
+// ── 編輯：把資料填回表單 ──────────────────────────────────────────────────────
+function editFlight(name, trip, date, time, flight) {
+  document.getElementById('input-name').value   = name;
+  document.getElementById('input-trip').value   = trip;
+  document.getElementById('input-date').value   = date;
+  document.getElementById('input-time').value   = time;
+  document.getElementById('input-flight').value = flight;
+  document.querySelector('.buddy-form').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  document.getElementById('input-name').focus();
+}
+
+// ── 渲染卡片 ──────────────────────────────────────────────────────────────────
 function renderPassengers(flights, highlightName) {
-  // 去程：trip 以 CUN 結尾 → outbound（飛往坎昆）
-  // 回程：trip 以 CUN 開頭 → return（從坎昆回來）
-  // 如果沒有 trip 格式，用日期兜底（Nov 06/07 = 去程，Nov 11 = 回程）
   function isOutbound(f) {
-    if (f.trip) {
-      const parts = f.trip.toUpperCase().split('-');
-      return parts[parts.length - 1] === 'CUN';
-    }
-    return f.date && (f.date.includes('06') || f.date.includes('07') || f.date.includes('05'));
+    if (!f.trip) return false;
+    const parts = f.trip.toUpperCase().split('-');
+    return parts[parts.length - 1] === 'CUN';
   }
 
-  // Group by trip + date (同班機的人合併)
+  function cleanDate(raw) {
+    if (!raw) return '';
+    if (raw.includes('GMT') || raw.length > 15) {
+      const d = new Date(raw);
+      if (!isNaN(d)) return d.toLocaleDateString('en-US', { month: 'short', day: '2-digit', timeZone: 'UTC' });
+    }
+    return raw;
+  }
+
   function groupAndSort(list) {
     const groups = {};
     for (const f of list) {
-      const k = (f.flight || f.trip) + '|' + f.date;
-      if (!groups[k]) groups[k] = { ...f, names: [] };
-      if (f.name && !groups[k].names.includes(f.name)) groups[k].names.push(f.name);
+      const k = (f.flight && f.flight !== 'TBD' ? f.flight : f.trip) + '|' + f.date;
+      if (!groups[k]) groups[k] = { ...f, passengers: [] };
+      if (f.name) groups[k].passengers.push({ name: f.name, trip: f.trip, date: f.date, time: f.time, flight: f.flight });
     }
-    return Object.values(groups).sort((a, b) => {
-      // Sort by date text (Nov 05 < Nov 06 etc.)
-      return (a.date || '').localeCompare(b.date || '') || (a.flight || '').localeCompare(b.flight || '');
-    });
+    return Object.values(groups).sort((a, b) =>
+      (a.date || '').localeCompare(b.date || '') || (a.flight || '').localeCompare(b.flight || ''));
   }
 
   const outbound = groupAndSort(flights.filter(f =>  isOutbound(f)));
@@ -752,25 +694,45 @@ function renderPassengers(flights, highlightName) {
       return;
     }
     el.innerHTML = list.map(g => {
-      const isMyFlight  = highlightName && g.names.includes(highlightName);
-      const names       = g.names.map(n =>
-        '<span class="name-chip' + (n === highlightName ? ' highlight' : '') + '">' + n + '</span>'
-      ).join('');
-      const matchBadge  = isMyFlight ? '<span class="match-badge">You\'re on this one!</span>' : '';
-      const flightLabel = g.flight && g.flight !== 'TBD' ? g.flight : '';
-      const tripLabel   = g.trip || '';
-      const timeLabel   = g.time && g.time !== 'TBD' ? g.time : '';
+      const dateStr  = cleanDate(g.date || '');
+      const times    = (g.time && g.time !== 'TBD') ? g.time.split('-') : [];
+      const depTime  = times[0] ? times[0].trim() : '';
+      const arrTime  = times[1] ? times[1].trim() : '';
+      const flightNo = g.flight && g.flight !== 'TBD' ? g.flight : '';
+
+      const chips = g.passengers.map(p => {
+        const isMe = highlightName && p.name === highlightName;
+        const ed   = "editFlight("
+          + JSON.stringify(p.name) + ","
+          + JSON.stringify(p.trip) + ","
+          + JSON.stringify(p.date) + ","
+          + JSON.stringify(p.time) + ","
+          + JSON.stringify(p.flight) + ")";
+        return '<span style="display:inline-flex;align-items:center;gap:4px;">'
+          + '<span class="name-chip' + (isMe ? ' highlight' : '') + '">' + p.name + '</span>'
+          + '<button onclick="' + ed + '" style="background:none;border:1px solid var(--border);color:var(--muted);font-size:10px;padding:2px 7px;border-radius:4px;cursor:pointer;font-family:Inter,sans-serif;line-height:1.5;">Edit</button>'
+          + '</span>';
+      }).join('');
+
+      const matchBadge = highlightName && g.passengers.some(p => p.name === highlightName)
+        ? '<span class="match-badge">You\'re on this one!</span>' : '';
+
       return '<div class="passenger-card">'
         + '<div class="passenger-header">'
-        + '<div>'
-        + (flightLabel ? '<span class="flight-route">' + flightLabel + '</span>' : '')
-        + (tripLabel   ? '<span style="color:var(--muted);font-size:0.8rem;margin-left:' + (flightLabel ? '8px' : '0') + ';">' + tripLabel + '</span>' : '')
+        + '<div style="display:flex;flex-direction:column;gap:3px;">'
+        + '<div style="display:flex;align-items:center;gap:8px;">'
+        + (flightNo ? '<span class="flight-route">' + flightNo + '</span>' : '')
+        + '<span style="font-size:0.775rem;color:var(--muted);background:var(--surface2);border:1px solid var(--border);padding:1px 7px;border-radius:4px;">' + (g.trip || '') + '</span>'
         + '</div>'
-        + '<div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">'
-        + '<span class="flight-date-tag">' + (g.date || '') + (timeLabel ? ' &middot; ' + timeLabel : '') + '</span>'
-        + matchBadge
-        + '</div></div>'
-        + '<div class="passenger-names">' + names + '</div>'
+        + '<div style="display:flex;align-items:center;gap:6px;margin-top:2px;">'
+        + '<span style="font-size:0.825rem;font-weight:600;color:var(--text-2);">' + dateStr + '</span>'
+        + (depTime ? '<span style="color:var(--muted);font-size:0.75rem;">&middot;</span>'
+            + '<span style="font-size:0.8rem;color:var(--muted);">' + depTime + (arrTime ? ' &rarr; ' + arrTime : '') + '</span>' : '')
+        + '</div>'
+        + '</div>'
+        + '<div>' + matchBadge + '</div>'
+        + '</div>'
+        + '<div class="passenger-names">' + chips + '</div>'
         + '</div>';
     }).join('');
   }
@@ -779,7 +741,6 @@ function renderPassengers(flights, highlightName) {
   renderGroup(ret,      'passengers-return',   'No return flights yet &#127968;');
 }
 
-// 頁面載入就從 Sheet 拉資料
 loadAndRender(null);
 </script>
 </body>
