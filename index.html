@@ -3,17 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Welcome On Board 🌴</title>
-<meta property="og:title" content="Welcome On Board 🌴" />
+<title>Welcome On Board 🌴 Cancun 2026</title>
+<meta property="og:title" content="Welcome On Board 🌴 Cancun 2026" />
 <meta property="og:description" content="Cancun · Mexico · November 2026 — Company trip info &amp; flight buddy finder" />
 <meta property="og:image" content="https://raw.githubusercontent.com/chiwulin/cancun/main/Image.jpeg" />
 <meta property="og:image:width" content="486" />
 <meta property="og:image:height" content="411" />
 <meta property="og:type" content="website" />
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Welcome On Board 🌴" />
-<meta name="twitter:description" content="Cancun · Mexico · November 2026 — Company trip info &amp; flight buddy finder" />
-<meta name="twitter:image" content="https://raw.githubusercontent.com/chiwulin/cancun/main/Image.jpeg" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -645,17 +641,6 @@ async function submitFlight() {
   btn.disabled = false;
 }
 
-// ── 編輯：把資料填回表單 ──────────────────────────────────────────────────────
-function editFlight(name, trip, date, time, flight) {
-  document.getElementById('input-name').value   = name;
-  document.getElementById('input-trip').value   = trip;
-  document.getElementById('input-date').value   = date;
-  document.getElementById('input-time').value   = time;
-  document.getElementById('input-flight').value = flight;
-  document.querySelector('.buddy-form').scrollIntoView({ behavior: 'smooth', block: 'center' });
-  document.getElementById('input-name').focus();
-}
-
 // ── 渲染卡片 ──────────────────────────────────────────────────────────────────
 function renderPassengers(flights, highlightName) {
   function isOutbound(f) {
@@ -702,16 +687,7 @@ function renderPassengers(flights, highlightName) {
 
       const chips = g.passengers.map(p => {
         const isMe = highlightName && p.name === highlightName;
-        const ed   = "editFlight("
-          + JSON.stringify(p.name) + ","
-          + JSON.stringify(p.trip) + ","
-          + JSON.stringify(p.date) + ","
-          + JSON.stringify(p.time) + ","
-          + JSON.stringify(p.flight) + ")";
-        return '<span style="display:inline-flex;align-items:center;gap:4px;">'
-          + '<span class="name-chip' + (isMe ? ' highlight' : '') + '">' + p.name + '</span>'
-          + '<button onclick="' + ed + '" style="background:none;border:1px solid var(--border);color:var(--muted);font-size:10px;padding:2px 7px;border-radius:4px;cursor:pointer;font-family:Inter,sans-serif;line-height:1.5;">Edit</button>'
-          + '</span>';
+        return '<span class="name-chip' + (isMe ? ' highlight' : '') + '">' + p.name + '</span>';
       }).join('');
 
       const matchBadge = highlightName && g.passengers.some(p => p.name === highlightName)
