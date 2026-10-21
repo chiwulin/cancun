@@ -4,13 +4,13 @@ All user-facing English on the page, in page order. A copy edit can change these
 
 Strings marked **not translated** stay in English when the language switcher is on 简体中文 or 繁體中文. Everything else has a `data-lang="en"` string with zh-Hans and zh-Hant siblings.
 
-Position note, left unchanged on purpose: in First Steps, “Register your flight in the Flight Buddy Finder below” (and the Chinese “在下方”) still says the finder is below. The finder section now sits above First Steps.
+Position note: First Steps points up to the Flight Buddy Finder. English says “above”; simplified and traditional Chinese say “上方”.
 
 ## Meta
 
 - Title: Welcome On Board 🌴 Cancun 2026
 - og:title: Welcome On Board 🌴 Cancun 2026
-- og:description: Cancun · Mexico · November 2026 — Company trip info & flight buddy finder
+- og:description: Cancun · Mexico · November 2026. Trip info and a flight buddy finder.
 
 ## Language switcher
 
@@ -48,61 +48,64 @@ Position note, left unchanged on purpose: in First Steps, “Register your fligh
 ## Itinerary
 
 - Itinerary
-- Suggested plan only — no pressure. We'll have meetups and parties throughout.
+- Just a suggested plan, no pressure. We'll have meetups and parties all week.
+- Day
+- When
+- Plan
 - Friday · Nov 6 **not translated**
 - Arrival
 - All day
-- Arrive in Cancun, check in, chill at the hotel
+- Land in Cancun, check in, and relax at the hotel
 - Saturday · Nov 7 **not translated**
 - Birthday Day
 - Daytime
-- Chill at the hotel
+- Relax at the hotel
 - 7 PM **not translated**
 - Group Dinner 🍽️
 - 9 PM **not translated**
 - Birthday Party till midnight 🎉
 - Sunday · Nov 8 **not translated**
 - Xel-Ha **not translated** (day title)
-- Xel-Ha park — Mayan tropical water experience
+- Xel-Ha, a Mayan tropical water park
 - Monday · Nov 9 **not translated**
 - Explore
 - A **not translated**
-- Xenotes tour — 4 stunning cenotes
+- Xenotes tour of 4 cenotes
 - B **not translated**
 - Chichén Itzá Deluxe Tour
 - Tuesday · Nov 10 **not translated**
 - Adventure
-- Xcaret Park — cultural experience
-- Xplor Park — jungle adventure (night: Xplor Fuego)
+- Xcaret Park for culture
+- Xplor Park for jungle adventure (Xplor Fuego at night)
 - Wednesday · Nov 11 **not translated**
 - Departure
 - Morning
-- Final chill, check out, return home
+- One last slow morning, check out, fly home
 
 ## Activities — All Included
 
 - Activities — All Included
-- All activities are covered by your hotel fee, but you need to **book each one separately in advance**.
+- Your hotel fee covers every activity, but you need to **book each one ahead of time**.
 - Xel-Ha **not translated** (card title)
-- Mayan tropical water park with snorkeling, swimming, and natural pools. Highly recommended.
+- A Mayan tropical water park with snorkeling, swimming, and natural pools.
 - ⭐ Highly Recommended **not translated**
 - Book ↗ **not translated**
 - Xplor **not translated** (card title)
-- Jungle adventure with zip lines and underground rivers. Night version Xplor Fuego available.
+- Zip lines and underground rivers in the jungle. There's a night version too, Xplor Fuego.
 - Xenotes **not translated** (card title)
-- Tour through 4 cenotes — geological sinkholes unique to Yucatán. Rare and photogenic.
+- A tour of 4 cenotes, natural sinkholes found only in the Yucatán. Great for photos.
 - Chichén Itzá Deluxe **not translated** (card title)
-- Iconic Mayan pyramid + colonial town Valladolid + a cenote stop.
+- The famous Mayan pyramid, the colonial town of Valladolid, and a cenote stop.
 - Xailing **not translated** (card title)
-- Ferry or catamaran to Isla Mujeres. Catamaran includes 1hr Caribbean snorkeling + free drinks.
+- Ferry or catamaran to Isla Mujeres. The catamaran adds 1 hour of Caribbean snorkeling and free drinks.
 - Xcaret Park **not translated** (card title)
-- The flagship park — underground rivers, wildlife, and Mexico's biggest cultural show at night.
+- The main park, with underground rivers, wildlife, and Mexico's biggest cultural show at night.
 - Learn more ↗ **not translated**
 
 ## Flight Buddy Finder
 
 - Flight Buddy Finder
-- Fill in your flight details to see who you're flying with.
+- Add your flight to see who's on it with you.
 - Your name
 - Placeholder: e.g. Justin **not translated**
 - Route
@@ -139,23 +142,25 @@ Names, flight numbers, routes, dates, and times in the passenger cards come from
 ## First Steps
 
 - First Steps
-- **Action needed:** Find your roommate and coordinate travel dates before booking. Each room must have the correct number of people registered.
-- Find your roommate and coordinate travel dates
-- Book flight tickets — use an Aeroplan credit card for free luggage
-- Register your flight in the Flight Buddy Finder below
+- **Do this first:** Find your roommate and agree on travel dates before you book. Each room needs the right number of people registered.
+- Find your roommate and agree on travel dates
+- Book your flights. Use an Aeroplan credit card for free luggage.
+- Add your flight to the Flight Buddy Finder above
 - Reserve the hotel airport shuttle in advance
-- Book activities in advance — Xel-Ha, Xenotes, Chichén Itzá, etc.
-- Apply for days off: Nov 9 (Mon) + Nov 10 (Tue), and Nov 6 (Fri) if departing early
+- Book activities ahead of time, like Xel-Ha, Xenotes, and Chichén Itzá
+- Request days off for Nov 9 (Mon) and Nov 10 (Tue), plus Nov 6 (Fri) if you leave early
 
 ## Travel Documents
 
 - Travel Documents
+- Passport
+- Entry
 - Canadian passport
 - ✓ No visa needed
 - ROC Taiwan passport
 - ⚠ Visa required
 - PRC China passport
-- ◯ No visa if you hold Canadian/US PR or eligible work/study permit — please confirm on the Mexico gov website
+- ◯ No visa if you have Canadian or US PR, or an eligible work or study permit. Please check the Mexico gov website.
 - Link label: Mexico gov website
 - **Electronic cigarettes and vapes are strictly prohibited in Mexico.**
 - Please do not bring them.
@@ -165,18 +170,18 @@ Names, flight numbers, routes, dates, and times in the passenger cards come from
 - Accommodation
 - Adults Only
 - Xcaret Hotel Arte **not translated**
-- Upscale adults-only experience with art-focused design and premium amenities.
+- An upscale, adults-only hotel built around art, with premium amenities.
 - View hotel ↗
 - Family Friendly
 - Xcaret Hotel Mexico **not translated**
-- Family-friendly experience celebrating Mexican culture, connected to Arte as one complex.
+- A family-friendly hotel that celebrates Mexican culture. It shares one complex with Arte.
 - All-inclusive perks
-- Food & drinks — 20+ restaurants & bars
+- Food and drinks at 20+ restaurants and bars
 - All Xcaret parks: Xcaret, Xel-Ha, Xplor, Xoximilco, Xense
-- Airport shuttle — reserve in advance
-- Xnote — tour of 4 cenotes
-- Xailing — ferry or catamaran to Isla Mujeres
-- Chichén Itzá Deluxe Tour + cenote + Valladolid town
+- Airport shuttle (reserve ahead)
+- Xnote, a tour of 4 cenotes
+- Xailing, a ferry or catamaran to Isla Mujeres
+- Chichén Itzá Deluxe Tour, with a cenote and the town of Valladolid
 - 5 art workshops: dance, pottery, weaving, painting, vegan gastronomy
 - 25% off SPA · 20% off photography · 40% off dolphin experience
 
@@ -184,23 +189,23 @@ Names, flight numbers, routes, dates, and times in the passenger cards come from
 
 - Tips
 - ✈️ Flights
-- Use an Aeroplan credit card for free luggage. Arrive early, leave late. The airport is 1 hour from the hotel — plan your transfers carefully.
+- Use an Aeroplan credit card for free luggage. Arrive early and leave late. The airport is 1 hour from the hotel, so plan your transfers.
 - 🏨 Why stay at Xcaret?
-- Xcaret owns most of Cancun's tourism services. Staying elsewhere means paying separately for every park. The hotel is in Playa del Carmen — 1 hour from downtown Cancun — so coordinating visits from different hotels is very difficult.
+- Xcaret runs most of Cancun's tourism. Stay anywhere else and you pay for every park separately. The hotel is in Playa del Carmen, 1 hour from downtown Cancun, so meeting up from different hotels is really hard.
 - 📅 Days off
-- At minimum: **Nov 9 (Mon)** and **Nov 10 (Tue)**. Also Nov 6 (Fri) depending on departure. Apply for remote work if available.
+- Take at least **Nov 9 (Mon)** and **Nov 10 (Tue)** off, plus Nov 6 (Fri) depending on when you leave. Ask for remote work if you can.
 
 ## Packing reminder
 
 Inside Tips, after the three tip cards.
 
-- Also remember to bring:
+- Don't forget:
 - Water shoes (like Crocs)
 - Waterproof dry bags
 - Waterproof phone cases
 - Ocean-friendly sunscreen
 - Loop earplugs (it's loud in the bar)
-- Other stuff you need for the beach and water activities
+- Anything else you need for the beach and the water
 
 ## Budget Estimator
 
