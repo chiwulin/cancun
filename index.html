@@ -124,11 +124,67 @@
     color: var(--primary-foreground);
     border-color: var(--primary);
   }
+  .cal-month { margin: 0.35rem 0 0; font-weight: 600; letter-spacing: -0.02em; }
+  .cal {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 0.5rem;
+    align-items: stretch;
+  }
+  .cal-dow {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--muted-foreground);
+    text-align: center;
+  }
+  .cal-pad {
+    background: var(--muted);
+    border-radius: var(--radius-xl);
+    min-height: 4.5rem;
+  }
+  .cal-day { min-width: 0; }
+  .cal-day > header { width: 100%; }
+  .cal-top {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.35rem;
+    width: 100%;
+    position: relative;
+  }
+  .cal-num {
+    margin: 0;
+    color: var(--foreground);
+    font-size: 1.35rem;
+    font-weight: 600;
+    letter-spacing: -0.04em;
+    line-height: 1;
+  }
+  .cal-day h3 { line-height: 1.25; }
+  .cal-items { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.65rem; }
+  .cal-items li { display: grid; gap: 0.28rem; justify-items: start; }
   #submit-status:not(:empty) { font-size: 0.875rem; font-weight: 600; }
 
   @media (max-width: 800px) {
     .form-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .calc-grid, .grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (min-width: 761px) {
+    .cal-top > p:not(.cal-num) {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      margin: -1px;
+      padding: 0;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+  }
+  @media (max-width: 760px) {
+    .cal { grid-template-columns: 1fr; }
+    .cal-dow, .cal-pad { display: none; }
   }
   @media (max-width: 640px) {
     .facts, .grid-2 { grid-template-columns: 1fr 1fr; }
@@ -226,64 +282,115 @@
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
         <section><span data-lang="en" class="visible">Just a suggested plan, no pressure. We'll have meetups and parties all week.</span><span data-lang="zh-hans">这只是建议行程，没有压力。整周都会有聚会和派对。</span><span data-lang="zh-hant">這只是建議行程，沒有壓力。整週都會有聚會和派對。</span></section>
       </div>
-      <div class="table-container">
-        <table class="table">
-          <thead>
-            <tr>
-              <th><span data-lang="en" class="visible">Day</span><span data-lang="zh-hans">日期</span><span data-lang="zh-hant">日期</span></th>
-              <th><span data-lang="en" class="visible">When</span><span data-lang="zh-hans">时间</span><span data-lang="zh-hant">時間</span></th>
-              <th><span data-lang="en" class="visible">Plan</span><span data-lang="zh-hans">安排</span><span data-lang="zh-hant">安排</span></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Friday &middot; Nov 6<br><strong><span data-lang="en" class="visible">Arrival</span><span data-lang="zh-hans">抵达日</span><span data-lang="zh-hant">抵達日</span></strong></td>
-              <td><span data-lang="en" class="visible">All day</span><span data-lang="zh-hans">全天</span><span data-lang="zh-hant">全天</span></td>
-              <td><span data-lang="en" class="visible">Land in Cancun, check in, and relax at the hotel</span><span data-lang="zh-hans">抵达坎昆，办理入住，在酒店放松</span><span data-lang="zh-hant">抵達坎昆，辦理入住，在酒店放鬆</span></td>
-            </tr>
-            <tr>
-              <td rowspan="3">Saturday &middot; Nov 7<br><strong><span data-lang="en" class="visible">Birthday Day</span><span data-lang="zh-hans">生日派对日</span><span data-lang="zh-hant">生日派對日</span></strong></td>
-              <td><span data-lang="en" class="visible">Daytime</span><span data-lang="zh-hans">白天</span><span data-lang="zh-hant">白天</span></td>
-              <td><span data-lang="en" class="visible">Relax at the hotel</span><span data-lang="zh-hans">在酒店放松</span><span data-lang="zh-hant">在酒店放鬆</span></td>
-            </tr>
-            <tr>
-              <td>7 PM</td>
-              <td><span data-lang="en" class="visible">Group Dinner &#127869;&#65039;</span><span data-lang="zh-hans">集体晚餐 &#127869;&#65039;</span><span data-lang="zh-hant">集體晚餐 &#127869;&#65039;</span></td>
-            </tr>
-            <tr>
-              <td>9 PM</td>
-              <td><span data-lang="en" class="visible">Birthday Party till midnight &#127881;</span><span data-lang="zh-hans">生日派对到午夜 &#127881;</span><span data-lang="zh-hant">生日派對到午夜 &#127881;</span></td>
-            </tr>
-            <tr>
-              <td>Sunday &middot; Nov 8<br><strong>Xel-Ha</strong></td>
-              <td><span data-lang="en" class="visible">All day</span><span data-lang="zh-hans">全天</span><span data-lang="zh-hant">全天</span></td>
-              <td><span data-lang="en" class="visible">Xel-Ha, a Mayan tropical water park</span><span data-lang="zh-hans">Xel-Ha，玛雅热带水上乐园</span><span data-lang="zh-hant">Xel-Ha，馬雅熱帶水上樂園</span></td>
-            </tr>
-            <tr>
-              <td rowspan="2">Monday &middot; Nov 9<br><strong><span data-lang="en" class="visible">Explore</span><span data-lang="zh-hans">探索日</span><span data-lang="zh-hant">探索日</span></strong></td>
-              <td>A</td>
-              <td><span data-lang="en" class="visible">Xenotes tour of 4 cenotes</span><span data-lang="zh-hans">Xenotes 之旅，游览 4 个天然井</span><span data-lang="zh-hant">Xenotes 之旅，遊覽 4 個天然井</span></td>
-            </tr>
-            <tr>
-              <td>B</td>
-              <td><span data-lang="en" class="visible">Chich&eacute;n Itz&aacute; Deluxe Tour</span><span data-lang="zh-hans">奇琴伊察豪华游</span><span data-lang="zh-hant">奇琴伊察豪華遊</span></td>
-            </tr>
-            <tr>
-              <td rowspan="2">Tuesday &middot; Nov 10<br><strong><span data-lang="en" class="visible">Adventure</span><span data-lang="zh-hans">冒险日</span><span data-lang="zh-hant">冒險日</span></strong></td>
-              <td>A</td>
-              <td><span data-lang="en" class="visible">Xcaret Park for culture</span><span data-lang="zh-hans">Xcaret 公园，文化体验</span><span data-lang="zh-hant">Xcaret 公園，文化體驗</span></td>
-            </tr>
-            <tr>
-              <td>B</td>
-              <td><span data-lang="en" class="visible">Xplor Park for jungle adventure (Xplor Fuego at night)</span><span data-lang="zh-hans">Xplor 公园，丛林探险（夜间是 Xplor Fuego）</span><span data-lang="zh-hant">Xplor 公園，叢林探險（夜間是 Xplor Fuego）</span></td>
-            </tr>
-            <tr>
-              <td>Wednesday &middot; Nov 11<br><strong><span data-lang="en" class="visible">Departure</span><span data-lang="zh-hans">返程日</span><span data-lang="zh-hant">返程日</span></strong></td>
-              <td><span data-lang="en" class="visible">Morning</span><span data-lang="zh-hans">上午</span><span data-lang="zh-hant">上午</span></td>
-              <td><span data-lang="en" class="visible">One last slow morning, check out, fly home</span><span data-lang="zh-hans">最后悠闲的早晨，退房，飞回家</span><span data-lang="zh-hant">最後悠閒的早晨，退房，飛回家</span></td>
-            </tr>
-          </tbody>
-        </table>
+      <p id="itinerary-month" class="cal-month">
+        <span data-lang="en" class="visible">November 2026</span>
+        <span data-lang="zh-hans">2026年11月</span>
+        <span data-lang="zh-hant">2026年11月</span>
+      </p>
+      <div class="cal" aria-labelledby="itinerary-month">
+        <div class="cal-dow"><span data-lang="en" class="visible">Sun</span><span data-lang="zh-hans">日</span><span data-lang="zh-hant">日</span></div>
+        <div class="cal-dow"><span data-lang="en" class="visible">Mon</span><span data-lang="zh-hans">一</span><span data-lang="zh-hant">一</span></div>
+        <div class="cal-dow"><span data-lang="en" class="visible">Tue</span><span data-lang="zh-hans">二</span><span data-lang="zh-hant">二</span></div>
+        <div class="cal-dow"><span data-lang="en" class="visible">Wed</span><span data-lang="zh-hans">三</span><span data-lang="zh-hant">三</span></div>
+        <div class="cal-dow"><span data-lang="en" class="visible">Thu</span><span data-lang="zh-hans">四</span><span data-lang="zh-hant">四</span></div>
+        <div class="cal-dow"><span data-lang="en" class="visible">Fri</span><span data-lang="zh-hans">五</span><span data-lang="zh-hant">五</span></div>
+        <div class="cal-dow"><span data-lang="en" class="visible">Sat</span><span data-lang="zh-hans">六</span><span data-lang="zh-hant">六</span></div>
+        <div class="cal-pad"></div>
+        <div class="cal-pad"></div>
+        <div class="cal-pad"></div>
+        <div class="cal-pad"></div>
+        <div class="cal-pad"></div>
+        <article class="card cal-day" data-size="sm">
+          <header>
+            <div class="cal-top">
+              <p><span data-lang="en" class="visible">Friday</span><span data-lang="zh-hans">周五</span><span data-lang="zh-hant">週五</span><br><span data-lang="en" class="visible">Nov 6</span><span data-lang="zh-hans">11月6日</span><span data-lang="zh-hant">11月6日</span></p>
+              <p class="cal-num">6</p>
+            </div>
+            <h3><span data-lang="en" class="visible">Arrival</span><span data-lang="zh-hans">抵达日</span><span data-lang="zh-hant">抵達日</span></h3>
+          </header>
+          <section>
+            <ul class="cal-items">
+              <li><span class="badge" data-variant="outline"><span data-lang="en" class="visible">All day</span><span data-lang="zh-hans">全天</span><span data-lang="zh-hant">全天</span></span><span><span data-lang="en" class="visible">Land in Cancun, check in, and relax at the hotel</span><span data-lang="zh-hans">抵达坎昆，办理入住，在酒店放松</span><span data-lang="zh-hant">抵達坎昆，辦理入住，在酒店放鬆</span></span></li>
+            </ul>
+          </section>
+        </article>
+        <article class="card cal-day" data-size="sm">
+          <header>
+            <div class="cal-top">
+              <p><span data-lang="en" class="visible">Saturday</span><span data-lang="zh-hans">周六</span><span data-lang="zh-hant">週六</span><br><span data-lang="en" class="visible">Nov 7</span><span data-lang="zh-hans">11月7日</span><span data-lang="zh-hant">11月7日</span></p>
+              <p class="cal-num">7</p>
+            </div>
+            <h3><span data-lang="en" class="visible">Birthday Day</span><span data-lang="zh-hans">生日派对日</span><span data-lang="zh-hant">生日派對日</span></h3>
+          </header>
+          <section>
+            <ul class="cal-items">
+              <li><span class="badge" data-variant="outline"><span data-lang="en" class="visible">Daytime</span><span data-lang="zh-hans">白天</span><span data-lang="zh-hant">白天</span></span><span><span data-lang="en" class="visible">Relax at the hotel</span><span data-lang="zh-hans">在酒店放松</span><span data-lang="zh-hant">在酒店放鬆</span></span></li>
+              <li><span class="badge" data-variant="secondary">7 PM</span><span><span data-lang="en" class="visible">Group Dinner &#127869;&#65039;</span><span data-lang="zh-hans">集体晚餐 &#127869;&#65039;</span><span data-lang="zh-hant">集體晚餐 &#127869;&#65039;</span></span></li>
+              <li><span class="badge" data-variant="secondary">9 PM</span><span><span data-lang="en" class="visible">Birthday Party till midnight &#127881;</span><span data-lang="zh-hans">生日派对到午夜 &#127881;</span><span data-lang="zh-hant">生日派對到午夜 &#127881;</span></span></li>
+            </ul>
+          </section>
+        </article>
+        <article class="card cal-day" data-size="sm">
+          <header>
+            <div class="cal-top">
+              <p><span data-lang="en" class="visible">Sunday</span><span data-lang="zh-hans">周日</span><span data-lang="zh-hant">週日</span><br><span data-lang="en" class="visible">Nov 8</span><span data-lang="zh-hans">11月8日</span><span data-lang="zh-hant">11月8日</span></p>
+              <p class="cal-num">8</p>
+            </div>
+            <h3>Xel-Ha</h3>
+          </header>
+          <section>
+            <ul class="cal-items">
+              <li><span class="badge" data-variant="outline"><span data-lang="en" class="visible">All day</span><span data-lang="zh-hans">全天</span><span data-lang="zh-hant">全天</span></span><span><span data-lang="en" class="visible">Xel-Ha, a Mayan tropical water park</span><span data-lang="zh-hans">Xel-Ha，玛雅热带水上乐园</span><span data-lang="zh-hant">Xel-Ha，馬雅熱帶水上樂園</span></span></li>
+            </ul>
+          </section>
+        </article>
+        <article class="card cal-day" data-size="sm">
+          <header>
+            <div class="cal-top">
+              <p><span data-lang="en" class="visible">Monday</span><span data-lang="zh-hans">周一</span><span data-lang="zh-hant">週一</span><br><span data-lang="en" class="visible">Nov 9</span><span data-lang="zh-hans">11月9日</span><span data-lang="zh-hant">11月9日</span></p>
+              <p class="cal-num">9</p>
+            </div>
+            <h3><span data-lang="en" class="visible">Explore</span><span data-lang="zh-hans">探索日</span><span data-lang="zh-hant">探索日</span></h3>
+          </header>
+          <section>
+            <ul class="cal-items">
+              <li><span class="badge" data-variant="outline">A</span><span><span data-lang="en" class="visible">Xenotes tour of 4 cenotes</span><span data-lang="zh-hans">Xenotes 之旅，游览 4 个天然井</span><span data-lang="zh-hant">Xenotes 之旅，遊覽 4 個天然井</span></span></li>
+              <li><span class="badge" data-variant="outline">B</span><span><span data-lang="en" class="visible">Chich&eacute;n Itz&aacute; Deluxe Tour</span><span data-lang="zh-hans">奇琴伊察豪华游</span><span data-lang="zh-hant">奇琴伊察豪華遊</span></span></li>
+            </ul>
+          </section>
+        </article>
+        <article class="card cal-day" data-size="sm">
+          <header>
+            <div class="cal-top">
+              <p><span data-lang="en" class="visible">Tuesday</span><span data-lang="zh-hans">周二</span><span data-lang="zh-hant">週二</span><br><span data-lang="en" class="visible">Nov 10</span><span data-lang="zh-hans">11月10日</span><span data-lang="zh-hant">11月10日</span></p>
+              <p class="cal-num">10</p>
+            </div>
+            <h3><span data-lang="en" class="visible">Adventure</span><span data-lang="zh-hans">冒险日</span><span data-lang="zh-hant">冒險日</span></h3>
+          </header>
+          <section>
+            <ul class="cal-items">
+              <li><span class="badge" data-variant="outline">A</span><span><span data-lang="en" class="visible">Xcaret Park for culture</span><span data-lang="zh-hans">Xcaret 公园，文化体验</span><span data-lang="zh-hant">Xcaret 公園，文化體驗</span></span></li>
+              <li><span class="badge" data-variant="outline">B</span><span><span data-lang="en" class="visible">Xplor Park for jungle adventure (Xplor Fuego at night)</span><span data-lang="zh-hans">Xplor 公园，丛林探险（夜间是 Xplor Fuego）</span><span data-lang="zh-hant">Xplor 公園，叢林探險（夜間是 Xplor Fuego）</span></span></li>
+            </ul>
+          </section>
+        </article>
+        <article class="card cal-day" data-size="sm">
+          <header>
+            <div class="cal-top">
+              <p><span data-lang="en" class="visible">Wednesday</span><span data-lang="zh-hans">周三</span><span data-lang="zh-hant">週三</span><br><span data-lang="en" class="visible">Nov 11</span><span data-lang="zh-hans">11月11日</span><span data-lang="zh-hant">11月11日</span></p>
+              <p class="cal-num">11</p>
+            </div>
+            <h3><span data-lang="en" class="visible">Departure</span><span data-lang="zh-hans">返程日</span><span data-lang="zh-hant">返程日</span></h3>
+          </header>
+          <section>
+            <ul class="cal-items">
+              <li><span class="badge" data-variant="outline"><span data-lang="en" class="visible">Morning</span><span data-lang="zh-hans">上午</span><span data-lang="zh-hant">上午</span></span><span><span data-lang="en" class="visible">One last slow morning, check out, fly home</span><span data-lang="zh-hans">最后悠闲的早晨，退房，飞回家</span><span data-lang="zh-hant">最後悠閒的早晨，退房，飛回家</span></span></li>
+            </ul>
+          </section>
+        </article>
+        <div class="cal-pad"></div>
+        <div class="cal-pad"></div>
+        <div class="cal-pad"></div>
       </div>
     </div>
   </section>

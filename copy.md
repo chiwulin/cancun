@@ -49,14 +49,21 @@ Position note: First Steps points up to the Flight Buddy Finder. English says �
 
 - Itinerary
 - Just a suggested plan, no pressure. We'll have meetups and parties all week.
-- Day
-- When
-- Plan
-- Friday · Nov 6 **not translated**
+- November 2026
+- Sun
+- Mon
+- Tue
+- Wed
+- Thu
+- Fri
+- Sat
+- Friday
+- Nov 6
 - Arrival
 - All day
 - Land in Cancun, check in, and relax at the hotel
-- Saturday · Nov 7 **not translated**
+- Saturday
+- Nov 7
 - Birthday Day
 - Daytime
 - Relax at the hotel
@@ -64,20 +71,24 @@ Position note: First Steps points up to the Flight Buddy Finder. English says �
 - Group Dinner 🍽️
 - 9 PM **not translated**
 - Birthday Party till midnight 🎉
-- Sunday · Nov 8 **not translated**
+- Sunday
+- Nov 8
 - Xel-Ha **not translated** (day title)
 - Xel-Ha, a Mayan tropical water park
-- Monday · Nov 9 **not translated**
+- Monday
+- Nov 9
 - Explore
 - A **not translated**
 - Xenotes tour of 4 cenotes
 - B **not translated**
 - Chichén Itzá Deluxe Tour
-- Tuesday · Nov 10 **not translated**
+- Tuesday
+- Nov 10
 - Adventure
 - Xcaret Park for culture
 - Xplor Park for jungle adventure (Xplor Fuego at night)
-- Wednesday · Nov 11 **not translated**
+- Wednesday
+- Nov 11
 - Departure
 - Morning
 - One last slow morning, check out, fly home
