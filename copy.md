@@ -4,7 +4,7 @@ All user-facing English on the page, in page order. A copy edit can change these
 
 Strings marked **not translated** stay in English when the language switcher is on 简体中文 or 繁體中文. Everything else has a `data-lang="en"` string with zh-Hans and zh-Hant siblings.
 
-Position note: First Steps points up to the Flight Buddy Finder. English says “above”; simplified and traditional Chinese say “上方”.
+Position note: First Steps is the first content section, above the itinerary calendar. The packing reminder is still the last block in Tips.
 
 ## Meta
 
@@ -33,6 +33,17 @@ Position note: First Steps points up to the Flight Buddy Finder. English says �
 - 4–5 Nights **not translated**
 - Hotel
 - Xcaret **not translated**
+
+## First Steps
+
+- First Steps
+- Reservation lead: send everyone's flight info for your room so we can book the airport shuttle.
+- Vote in the Nov 8 group activity poll.
+- Download the apps.
+- Look into the parks and experiences.
+- Reservation lead: book the Nov 10 activity (Xcaret Park or Xplor).
+- Make sure your group members and room reservations line up.
+- Pack your water essentials (see the packing list).
 
 ## Summary
 
@@ -149,17 +160,6 @@ Validation alerts. **Not translated.**
 - Please enter a date, e.g. Nov 06
 
 Names, flight numbers, routes, dates, and times in the passenger cards come from the sheet, not from this page.
-
-## First Steps
-
-- First Steps
-- **Do this first:** Find your roommate and agree on travel dates before you book. Each room needs the right number of people registered.
-- Find your roommate and agree on travel dates
-- Book your flights. Use an Aeroplan credit card for free luggage.
-- Add your flight to the Flight Buddy Finder above
-- Reserve the hotel airport shuttle in advance
-- Book activities ahead of time, like Xel-Ha, Xenotes, and Chichén Itzá
-- Request days off for Nov 9 (Mon) and Nov 10 (Tue), plus Nov 6 (Fri) if you leave early
 
 ## Travel Documents
 
